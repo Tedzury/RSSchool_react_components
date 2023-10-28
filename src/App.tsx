@@ -3,6 +3,7 @@ import * as React from 'react';
 import Header from './components/Header/Header';
 import SearchBar from './components/SearchBar/SearchBar';
 import getCharacters from './service/getCharacters';
+import CharList from './components/CharList/CharList';
 import { CharObj } from './types';
 
 type StateType = {
@@ -59,6 +60,7 @@ class App extends React.Component {
           >
             throw error
           </button>
+          <CharList characters={this.state.charData} />
         </div>
       </div>
     );
