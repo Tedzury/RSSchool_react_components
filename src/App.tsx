@@ -4,23 +4,34 @@ import Header from './components/Header/Header';
 import SearchBar from './components/SearchBar/SearchBar';
 import getCharacters from './service/getCharacters';
 import CharList from './components/CharList/CharList';
+import ErrorThrower from './components/ErrorThrower/ErrorThrower';
+import Loader from './components/Loader/Loader';
 import { CharObj } from './types';
 
 type StateType = {
   searchValue: string;
-  errorCount: number;
+  isError: boolean;
   charData: CharObj[];
+  isLoading: boolean;
 };
 
-class App extends React.Component {
-  state: StateType = {
-    searchValue: '',
-    errorCount: 0,
-    charData: [],
-  };
+class App extends React.Component<unknown, StateType> {
+  constructor(props: unknown) {
+    super(props);
+    this.state = {
+      searchValue: localStorage.getItem('reactComponentSearchTerm') || '',
+      isError: false,
+      charData: [],
+      isLoading: false,
+    };
+  }
+
+  componentDidMount(): void {
+    this.getCharData();
+  }
 
   componentDidUpdate(): void {
-    if (this.state.errorCount === 1) {
+    if (this.state.isError === true) {
       throw new Error("OMG, you've pressed a button!");
     }
   }
@@ -29,39 +40,37 @@ class App extends React.Component {
     this.setState({ ...this.state, searchValue: value });
   }
 
-  setCharData(arr: CharObj[]) {
-    this.setState({ ...this.state, charData: arr });
+  setError() {
+    this.setState({
+      ...this.state,
+      isError: true,
+    });
   }
 
   async getCharData() {
+    this.setState({ ...this.state, isLoading: true });
     const charData = await getCharacters(this.state.searchValue);
-    this.setCharData(charData);
+    localStorage.setItem('reactComponentSearchTerm', this.state.searchValue);
+    this.setState({ ...this.state, isLoading: false, charData });
   }
 
   render() {
     return (
       <div className="mx-auto max-w-[700px]">
         <Header />
-        <div className="mx-3 mt-6 rounded-md bg-[#e8e6e6] p-2">
+        <div className="mx-3 mt-6 rounded-md border-4 border-[white] bg-[#e8e6e6] p-2">
           <SearchBar
             value={this.state.searchValue}
             setSearch={this.setSearch.bind(this)}
             getCharData={this.getCharData.bind(this)}
           />
-          <button
-            type="button"
-            className="w-[100px] bg-[yellow]"
-            onClick={() => {
-              this.setState({
-                ...this.state,
-                errorCount: this.state.errorCount + 1,
-              });
-            }}
-          >
-            throw error
-          </button>
-          <CharList characters={this.state.charData} />
+          <ErrorThrower setError={this.setError.bind(this)} />
         </div>
+        {this.state.isLoading ? (
+          <Loader />
+        ) : (
+          <CharList characters={this.state.charData} />
+        )}
       </div>
     );
   }
