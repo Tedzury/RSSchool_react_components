@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { Component } from 'react';
 
 import Header from './components/Header/Header';
 import SearchBar from './components/SearchBar/SearchBar';
@@ -15,7 +15,7 @@ type StateType = {
   isLoading: boolean;
 };
 
-class App extends React.Component<unknown, StateType> {
+class App extends Component<unknown, StateType> {
   constructor(props: unknown) {
     super(props);
     this.state = {

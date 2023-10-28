@@ -1,6 +1,6 @@
-import * as React from 'react';
+import { Component } from 'react';
 
-class Loader extends React.Component {
+class Loader extends Component {
   render() {
     return (
       <div className="flex justify-center py-3">

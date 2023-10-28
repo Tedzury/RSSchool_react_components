@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { Component } from 'react';
 
 import { CharObj } from '../../types';
 
@@ -6,7 +6,7 @@ type PropsType = {
   char: CharObj;
 };
 
-class CharListItem extends React.Component<PropsType> {
+class CharListItem extends Component<PropsType> {
   render() {
     const {
       name,

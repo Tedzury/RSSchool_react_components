@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { Component } from 'react';
 
 type PropsType = {
   value: string;
@@ -6,7 +6,7 @@ type PropsType = {
   getCharData: () => Promise<void>;
 };
 
-class SearchBar extends React.Component<PropsType> {
+class SearchBar extends Component<PropsType> {
   render() {
     const { value, setSearch, getCharData } = this.props;
     return (

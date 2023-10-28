@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { Component } from 'react';
 
 type MyProps = {
   fallback: JSX.Element;
@@ -9,7 +9,7 @@ type MyState = {
   hasError: boolean;
 };
 
-class ErrorBoundary extends React.Component<MyProps, MyState> {
+class ErrorBoundary extends Component<MyProps, MyState> {
   constructor(props: MyProps) {
     super(props);
     this.state = { hasError: false };

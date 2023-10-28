@@ -1,6 +1,6 @@
-import * as React from 'react';
+import { Component } from 'react';
 
-class ErrorFallback extends React.Component {
+class ErrorFallback extends Component {
   render() {
     return (
       <div className="flex h-[100dvh] w-full items-center justify-center bg-[white]">

@@ -1,10 +1,10 @@
-import * as React from 'react';
+import { Component } from 'react';
 
 type PropsType = {
   setError: () => void;
 };
 
-class ErrorThrower extends React.Component<PropsType> {
+class ErrorThrower extends Component<PropsType> {
   render() {
     return (
       <div className="mt-5 flex justify-center">
