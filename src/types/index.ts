@@ -7,3 +7,10 @@ export type CharObj = {
   skin_color: string;
   hair_color: string;
 };
+
+export type StateType = {
+  searchValue: string;
+  isError: boolean;
+  charData: CharObj[];
+  isLoading: boolean;
+};
