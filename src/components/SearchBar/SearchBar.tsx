@@ -1,5 +1,8 @@
 import { Component } from 'react';
 
+import SubmitBtn from './ui/SubmitBtn';
+import TextInput from './ui/TextInput';
+
 type PropsType = {
   value: string;
   setSearch: (value: string) => void;
@@ -18,29 +21,12 @@ class SearchBar extends Component<PropsType> {
             getCharData();
           }}
         >
-          <input
-            type="text"
+          <TextInput
             placeholder="Type a name!"
-            className="rounded-md pl-3"
             value={value}
-            onChange={(e) => setSearch(e.target.value)}
+            setSearch={setSearch}
           />
-          <button
-            className="
-            rounded-md 
-            border-2 
-            border-[darkgrey] 
-            bg-[#e8e6e6] 
-            px-2 
-            py-1 
-            transition-all 
-            duration-300 
-            hover:bg-[darkgrey]
-          "
-            type="submit"
-          >
-            Search
-          </button>
+          <SubmitBtn />
         </form>
       </div>
     );

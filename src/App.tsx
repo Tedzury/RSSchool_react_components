@@ -58,6 +58,11 @@ class App extends Component<unknown, StateType> {
   }
 
   render() {
+    const mainContent = this.state.isLoading ? (
+      <Loader />
+    ) : (
+      <CharList characters={this.state.charData} />
+    );
     return (
       <div className="mx-auto max-w-[700px]">
         <Header />
@@ -69,11 +74,7 @@ class App extends Component<unknown, StateType> {
           />
           <ErrorThrower setError={this.setError.bind(this)} />
         </div>
-        {this.state.isLoading ? (
-          <Loader />
-        ) : (
-          <CharList characters={this.state.charData} />
-        )}
+        {mainContent}
       </div>
     );
   }
