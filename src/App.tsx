@@ -49,8 +49,11 @@ class App extends Component<unknown, StateType> {
 
   async getCharData() {
     this.setState({ ...this.state, isLoading: true });
-    const charData = await getCharacters(this.state.searchValue);
-    localStorage.setItem('reactComponentSearchTerm', this.state.searchValue);
+    const charData = await getCharacters(this.state.searchValue.trim());
+    localStorage.setItem(
+      'reactComponentSearchTerm',
+      this.state.searchValue.trim()
+    );
     this.setState({ ...this.state, isLoading: false, charData });
   }
 
