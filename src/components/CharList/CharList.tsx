@@ -1,5 +1,5 @@
 import CharListItem from '../CharListItem/CharListItem';
-import { CharObj } from '../../types';
+import { CharObj } from '../../shared/types';
 
 type PropsType = {
   characters: CharObj[];
@@ -18,7 +18,7 @@ export default function CharList({ characters }: PropsType) {
     );
 
   return (
-    <div className="mx-3 mt-5 rounded-md border-4 border-[white] bg-[#e8e6e6] p-3">
+    <div className="mx-3 mt-5 rounded-md border-4 border-accent_80 bg-main_bg p-3">
       {content}
     </div>
   );

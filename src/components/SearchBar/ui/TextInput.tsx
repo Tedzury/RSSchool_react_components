@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { StateType } from '../../../types';
+import { StateType } from '../../../shared/types';
 
 type PropsType = {
   value: string;
@@ -14,7 +14,7 @@ class TextInput extends Component<PropsType> {
       <input
         type="text"
         placeholder={placeholder}
-        className="rounded-md pl-3"
+        className="rounded-md border-[3px] border-purple_40 pl-3 outline-blue_100"
         value={value}
         onChange={(e) =>
           setAppState((prev) => {

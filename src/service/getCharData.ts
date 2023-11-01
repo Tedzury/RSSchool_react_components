@@ -1,4 +1,4 @@
-import { StateType } from '../types';
+import { StateType } from '../shared/types';
 import fetchCharacters from './fetchCharacters';
 
 export default async function getCharData(

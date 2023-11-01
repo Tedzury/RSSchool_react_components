@@ -1,6 +1,6 @@
 import SubmitBtn from './ui/SubmitBtn';
 import TextInput from './ui/TextInput';
-import { StateType } from '../../types';
+import { StateType } from '../../shared/types';
 import getCharData from '../../service/getCharData';
 
 type PropsType = {

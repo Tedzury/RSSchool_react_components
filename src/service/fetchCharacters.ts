@@ -1,21 +1,19 @@
-import { CharObj } from '../types';
-
-const baseUrl = 'https://swapi.dev/api/people/';
+import { responseObj } from '../shared/types';
+import { baseUrl, apiKey, limit } from '../shared/constants/constants';
 
 export default async function fetchCharacters(searchQuery: string) {
-  const url = searchQuery ? `${baseUrl}?search=${searchQuery}` : baseUrl;
+  const url = searchQuery ? `${baseUrl}?name=${searchQuery}&limit=${limit}&offset=0&apikey=${apiKey}` : `${baseUrl}?&limit=20&offset=0&apikey=${apiKey}`;
   const res = await fetch(url);
   if (res.ok && res.status === 200) {
     const data = await res.json();
-    return data.results.map((char: CharObj) => {
+    console.log(data);
+    return data.data.results.map((char: responseObj) => {
       return {
         name: char.name,
-        birth_year: char.birth_year,
-        height: char.height,
-        mass: char.mass,
-        eye_color: char.eye_color,
-        skin_color: char.skin_color,
-        hair_color: char.hair_color,
+        id: char.id,
+        description: char.description,
+        thumbnail: `${char.thumbnail.path}.${char.thumbnail.extension}`,
+        comics: char.comics.items?.map(comic => {return comic.name}),
       };
     });
   }

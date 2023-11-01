@@ -3,14 +3,15 @@ export default function SubmitBtn() {
     <button
       className="
           rounded-md 
-          border-2 
-          border-[darkgrey] 
-          bg-[#e8e6e6] 
+          border-[3px] 
+          border-purple_40
+          bg-main_bg 
           px-2 
           py-1 
+          font-bold 
           transition-all 
-          duration-300 
-          hover:bg-[darkgrey]
+          duration-300
+          hover:bg-accent_40
         "
       type="submit"
     >

@@ -1,4 +1,4 @@
-import { CharObj } from '../types';
+import { CharObj } from '../shared/types';
 
 export const defaultState = {
   searchValue: localStorage.getItem('reactComponentSearchTerm') || '',

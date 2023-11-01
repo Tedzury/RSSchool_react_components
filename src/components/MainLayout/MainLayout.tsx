@@ -32,7 +32,7 @@ export default function MainLayout() {
   return (
     <div className="mx-auto max-w-[700px]">
       <Header />
-      <div className="mx-3 mt-6 rounded-md border-4 border-[white] bg-[#e8e6e6] p-2">
+      <div className="mx-3 mt-6 rounded-md border-4 border-accent_80 bg-main_bg p-2">
         <SearchBar appState={appState} setAppState={setAppState} />
         <ErrorThrower setAppState={setAppState} />
       </div>
