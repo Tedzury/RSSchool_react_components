@@ -1,15 +1,16 @@
 import SubmitBtn from './ui/SubmitBtn';
 import TextInput from './ui/TextInput';
+import { StateType } from '../../types';
 
 type PropsType = {
   value: string;
-  setSearch: (value: string) => void;
+  setAppState: React.Dispatch<React.SetStateAction<StateType>>;
   getCharData: () => Promise<void>;
 };
 
 export default function SearchBar({
   value,
-  setSearch,
+  setAppState,
   getCharData,
 }: PropsType) {
   return (
@@ -24,7 +25,7 @@ export default function SearchBar({
         <TextInput
           placeholder="Type a name!"
           value={value}
-          setSearch={setSearch}
+          setAppState={setAppState}
         />
         <SubmitBtn />
       </form>
