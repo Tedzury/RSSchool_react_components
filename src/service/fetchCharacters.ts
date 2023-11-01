@@ -2,7 +2,7 @@ import { CharObj } from '../types';
 
 const baseUrl = 'https://swapi.dev/api/people/';
 
-export default async function getCharacters(searchQuery: string) {
+export default async function fetchCharacters(searchQuery: string) {
   const url = searchQuery ? `${baseUrl}?search=${searchQuery}` : baseUrl;
   const res = await fetch(url);
   if (res.ok && res.status === 200) {
