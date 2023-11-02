@@ -1,4 +1,4 @@
-import CharListItem from '../CharListItem/CharListItem';
+import CharListItem from './ui/CharListItem';
 import { CharObj } from '../../shared/types';
 
 type PropsType = {

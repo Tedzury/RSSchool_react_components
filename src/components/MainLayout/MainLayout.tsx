@@ -4,8 +4,8 @@ import SearchBar from '../SearchBar/SearchBar';
 import CharList from '../CharList/CharList';
 import ErrorThrower from '../ErrorThrower/ErrorThrower';
 import Loader from '../Loader/Loader';
-import getCharData from '../../service/getCharData';
-import { defaultState } from '../../service/defaultState';
+import getCharList from '../../service/getCharList';
+import { defaultState } from '../../shared/constants/constants';
 
 export default function MainLayout() {
   const [appState, setAppState] = useState(defaultState);
@@ -17,8 +17,9 @@ export default function MainLayout() {
   const { isLoading, charData } = appState;
 
   useEffect(() => {
-    getCharData(
+    getCharList(
       localStorage.getItem('reactComponentSearchTerm') || '',
+      0,
       setAppState
     );
   }, []);

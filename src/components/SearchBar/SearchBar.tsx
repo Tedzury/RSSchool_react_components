@@ -1,7 +1,7 @@
 import SubmitBtn from './ui/SubmitBtn';
 import TextInput from './ui/TextInput';
 import { StateType } from '../../shared/types';
-import getCharData from '../../service/getCharData';
+import getCharList from '../../service/getCharList';
 
 type PropsType = {
   appState: StateType;
@@ -16,7 +16,7 @@ export default function SearchBar({ appState, setAppState }: PropsType) {
         className="flex justify-center gap-5"
         onSubmit={(e) => {
           e.preventDefault();
-          getCharData(searchValue, setAppState);
+          getCharList(searchValue, 0, setAppState);
         }}
       >
         <TextInput
