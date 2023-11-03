@@ -1,4 +1,4 @@
-import MainLayout from './components/MainLayout/MainLayout';
+import MainLayout from './pages/MainLayout';
 
 export default function App() {
   return <MainLayout />;

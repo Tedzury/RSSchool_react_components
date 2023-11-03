@@ -15,7 +15,7 @@ export default async function getCharList(
     searchValue.trim(),
     offset.toString()
   );
-  const totalPages = Math.ceil(totalCount / limit);
+  const totalPages = Math.ceil(totalCount / limit) - 1;
   localStorage.setItem('reactComponentSearchTerm', searchValue.trim());
   setAppState((prev) => {
     return { ...prev, isLoading: false, totalPages, charData };
