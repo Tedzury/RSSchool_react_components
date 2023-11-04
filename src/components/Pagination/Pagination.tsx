@@ -24,36 +24,38 @@ export default function Pagination({ appState, setAppState }: PropsType) {
     }
   }
   return (
-    <div className="flex justify-between" onClick={(e) => clickHandler(e)}>
-      <button
-        disabled={backDisabled}
-        data-user-action="first"
-        className="bg-accent_100 p-2 disabled:bg-[grey]"
-      >
-        First
-      </button>
-      <button
-        disabled={backDisabled}
-        data-user-action="prev"
-        className="bg-accent_100 p-2 disabled:bg-[grey]"
-      >
-        Prev
-      </button>
-      <p>{currPage + 1}</p>
-      <button
-        disabled={forwardDisabled}
-        data-user-action="next"
-        className="bg-accent_100 p-2 disabled:bg-[grey]"
-      >
-        Next
-      </button>
-      <button
-        disabled={forwardDisabled}
-        data-user-action="last"
-        className="bg-accent_100 p-2 disabled:bg-[grey]"
-      >
-        Last
-      </button>
+    <div className="mt-5 text-2xl" onClick={(e) => clickHandler(e)}>
+      <div className="mx-auto flex w-[350px] items-center justify-center gap-5 rounded-full bg-main_bg p-2">
+        <button
+          disabled={backDisabled}
+          data-user-action="first"
+          className="w-[45px] rounded-full bg-accent_100 p-2 transition-all duration-300 hover:bg-purple_20 disabled:bg-[grey]"
+        >
+          &lt;&lt;
+        </button>
+        <button
+          disabled={backDisabled}
+          data-user-action="prev"
+          className="w-[45px] rounded-full bg-accent_100 p-2 transition-all duration-300 hover:bg-purple_20 disabled:bg-[grey]"
+        >
+          &lt;
+        </button>
+        <p className="text-3xl font-bold">{currPage + 1}</p>
+        <button
+          disabled={forwardDisabled}
+          data-user-action="next"
+          className="w-[45px] rounded-full bg-accent_100 p-2 transition-all duration-300 hover:bg-purple_20 disabled:bg-[grey]"
+        >
+          &gt;
+        </button>
+        <button
+          disabled={forwardDisabled}
+          data-user-action="last"
+          className="w-[45px] rounded-full bg-accent_100 p-2 transition-all duration-300 hover:bg-purple_20 disabled:bg-[grey]"
+        >
+          &gt;&gt;
+        </button>
+      </div>
     </div>
   );
 }

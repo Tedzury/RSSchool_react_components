@@ -8,9 +8,7 @@ type PropsType = {
 
 export default function CharListItem({ char, currPage }: PropsType) {
   const { name, id, thumbnail } = char;
-  // const href = window.location.href;
-  // const pageRegEx = /page=(\d*)/i;
-  // const pageNumb = href.match(pageRegEx) == null ? 1 : href.match(pageRegEx)[1];
+
   return (
     <li data-id={id}>
       <NavLink to={`/page=${currPage + 1}&id=${id}`}>
