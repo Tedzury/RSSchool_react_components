@@ -14,26 +14,19 @@ export default function MainLayout() {
     throw new Error("OMG, you've pressed a button!");
   }
 
-  const { isLoading, charData, currPage } = appState;
+  const { isLoading, charData, currPage, limit } = appState;
 
   useEffect(() => {
     getCharList(
       localStorage.getItem('reactComponentSearchTerm') || '',
       currPage,
+      limit,
       setAppState
     );
-  }, [currPage]);
-
-  useEffect(() => {
-    getCharList(
-      localStorage.getItem('reactComponentSearchTerm') || '',
-      0,
-      setAppState
-    );
-  }, []);
+  }, [currPage, limit]);
 
   return (
-    <div className="mx-auto max-w-[700px]">
+    <div className="mx-auto max-w-[1025px]">
       <Header />
       <div className="mx-3 mt-6 rounded-md border-4 border-accent_80 bg-main_bg p-2">
         <SearchBar appState={appState} setAppState={setAppState} />

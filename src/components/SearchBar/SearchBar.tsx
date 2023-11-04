@@ -9,14 +9,14 @@ type PropsType = {
 };
 
 export default function SearchBar({ appState, setAppState }: PropsType) {
-  const { searchValue } = appState;
+  const { searchValue, limit, currPage } = appState;
   return (
     <div className="mt-5">
       <form
         className="flex justify-center gap-5"
         onSubmit={(e) => {
           e.preventDefault();
-          getCharList(searchValue, 0, setAppState);
+          getCharList(searchValue, currPage, limit, setAppState);
         }}
       >
         <TextInput

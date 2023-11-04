@@ -1,9 +1,10 @@
 import { responseObj } from '../shared/types';
-import { baseUrl, apiKey, limit } from '../shared/constants/constants';
+import { baseUrl, apiKey } from '../shared/constants/constants';
 
 export default async function fetchCharactersList(
   searchQuery: string,
-  offset: string
+  offset: number,
+  limit: number
 ) {
   const url = searchQuery
     ? `${baseUrl}?name=${searchQuery}&limit=${limit}&offset=${offset}&apikey=${apiKey}`

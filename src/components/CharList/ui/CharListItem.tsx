@@ -9,12 +9,16 @@ export default function CharListItem({ char }: PropsType) {
   return (
     <li
       data-id={id}
-      className="my-3 flex cursor-pointer items-center justify-center gap-20 rounded-md border-2 border-purple_80 bg-main_bg p-3 font-bold transition-all duration-300 hover:scale-[1.005] hover:bg-accent_40"
+      className="flex cursor-pointer items-center justify-center gap-5 rounded-md border-2 border-purple_80 bg-main_bg p-3 font-bold transition-all duration-300 hover:scale-[1.005] hover:bg-accent_40"
     >
-      <div className="w-[200px]">
-        <img className="rounded-md" src={thumbnail} alt={`${name} image`} />
+      <div className="w-[200px] min-w-[90px]">
+        <img
+          className="w-full rounded-md"
+          src={thumbnail}
+          alt={`${name} image`}
+        />
       </div>
-      <h3 className="w-full text-center text-xl">{name}</h3>
+      <h3 className="text-md w-full text-center lg:text-lg">{name}</h3>
     </li>
   );
 }

@@ -26,4 +26,5 @@ export type StateType = {
   isLoading: boolean;
   currPage: number;
   totalPages: number;
+  limit: number;
 };
