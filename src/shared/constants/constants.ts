@@ -10,7 +10,7 @@ const defaultState = {
   isLoading: false,
   currPage: 0,
   totalPages: 0,
-  limit: 10,
+  limit: 5,
 };
 
 export { baseUrl, apiKey, defaultState };

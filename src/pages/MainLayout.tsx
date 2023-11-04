@@ -23,6 +23,8 @@ export default function MainLayout() {
       limit,
       setAppState
     );
+    localStorage.setItem('reactComponentCurrentPage', currPage.toString());
+    history.pushState({}, '', `page=${(currPage + 1).toString()}`);
   }, [currPage, limit]);
 
   return (
@@ -32,7 +34,11 @@ export default function MainLayout() {
         <SearchBar appState={appState} setAppState={setAppState} />
         <ErrorThrower setAppState={setAppState} />
       </div>
-      <CharList characters={charData} isLoading={isLoading} />
+      <CharList
+        currPage={currPage}
+        characters={charData}
+        isLoading={isLoading}
+      />
       <Pagination appState={appState} setAppState={setAppState} />
     </div>
   );

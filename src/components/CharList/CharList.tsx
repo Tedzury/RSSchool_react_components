@@ -1,21 +1,35 @@
 import CharListItem from './ui/CharListItem';
 import { CharObj } from '../../shared/types';
 import Loader from '../Loader/Loader';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 type PropsType = {
   characters: CharObj[];
   isLoading: boolean;
+  currPage: number;
 };
 
-export default function CharList({ characters, isLoading }: PropsType) {
+export default function CharList({
+  characters,
+  isLoading,
+  currPage,
+}: PropsType) {
+  const navigation = useNavigate();
+
   const elements = characters.map((char) => {
-    return <CharListItem key={char.name} char={char} />;
+    return <CharListItem key={char.name} char={char} currPage={currPage} />;
   });
+
+  function clickHandler(e: React.MouseEvent<HTMLUListElement, MouseEvent>) {
+    if ((e.target as Element).nodeName === 'UL')
+      navigation(`/?page=${currPage + 1}`);
+  }
 
   const charList =
     characters.length > 0 ? (
-      <ul className="flex flex-col gap-3">{elements}</ul>
+      <ul onClick={(e) => clickHandler(e)} className="flex flex-col gap-3">
+        {elements}
+      </ul>
     ) : (
       <div className="text-center">Sorry, there is no characters yet!</div>
     );

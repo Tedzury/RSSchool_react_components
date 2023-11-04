@@ -1,5 +1,6 @@
 import { StateType } from '../../shared/types';
 import getPaginationMove from '../../helpers/getPaginationMove';
+import { useNavigate } from 'react-router-dom';
 
 type PropsType = {
   appState: StateType;
@@ -10,6 +11,7 @@ export default function Pagination({ appState, setAppState }: PropsType) {
   const { currPage, totalPages } = appState;
   const backDisabled = currPage <= 0;
   const forwardDisabled = currPage >= totalPages;
+  const navigation = useNavigate();
 
   function clickHandler(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     const attr = (e.target as HTMLElement).getAttribute('data-user-action');
@@ -18,6 +20,7 @@ export default function Pagination({ appState, setAppState }: PropsType) {
       setAppState((prev) => {
         return { ...prev, currPage: nextPage };
       });
+      navigation('/');
     }
   }
   return (
