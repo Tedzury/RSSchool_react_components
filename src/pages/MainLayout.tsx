@@ -35,8 +35,10 @@ export default function MainLayout() {
         <Header />
         <div className="mx-3 mt-6 rounded-md border-4 border-accent_80 bg-main_bg p-2">
           <SearchBar appState={appState} setAppState={setAppState} />
-          <ErrorThrower setAppState={setAppState} />
-          <LimitSelector />
+          <div className="mb-5 flex flex-col items-center gap-5">
+            <ErrorThrower setAppState={setAppState} />
+            <LimitSelector limit={limit} setAppState={setAppState} />
+          </div>
         </div>
         <CharList
           currPage={currPage}

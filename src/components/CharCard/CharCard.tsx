@@ -66,7 +66,7 @@ export default function CharCard() {
       className="overlay absolute left-0 top-0 flex min-h-full w-full justify-end bg-[#5b5b9b3d]"
     >
       <div className="max-w-[500px] bg-main_bg p-3">
-        <div className="relative mb-[50px] mt-[323px] rounded-md border-2 border-purple_80 p-3">
+        <div className="relative mb-[50px] mt-[387px] rounded-md border-2 border-purple_80 p-3">
           <div className="mt-10 flex justify-center">
             <img className="max-w-[350px] rounded-md" src={thumbnail} alt="" />
           </div>
