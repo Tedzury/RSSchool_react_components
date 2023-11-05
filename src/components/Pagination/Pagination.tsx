@@ -25,18 +25,18 @@ export default function Pagination({ appState, setAppState }: PropsType) {
   }
   return (
     <div className="mt-5 text-2xl" onClick={(e) => clickHandler(e)}>
-      <div className="mx-auto flex w-[350px] items-center justify-center gap-5 rounded-full bg-main_bg p-2">
+      <div className="mx-auto flex w-[350px] items-center justify-center gap-5 rounded-full bg-purple_40 p-2">
         <button
           disabled={backDisabled}
           data-user-action="first"
-          className="w-[45px] rounded-full bg-accent_100 p-2 transition-all duration-300 hover:bg-purple_20 disabled:bg-[grey]"
+          className="w-[45px] rounded-full bg-accent_100 p-2 transition-all duration-300 hover:bg-accent_40 disabled:bg-[grey]"
         >
           &lt;&lt;
         </button>
         <button
           disabled={backDisabled}
           data-user-action="prev"
-          className="w-[45px] rounded-full bg-accent_100 p-2 transition-all duration-300 hover:bg-purple_20 disabled:bg-[grey]"
+          className="w-[45px] rounded-full bg-accent_100 p-2 transition-all duration-300 hover:bg-accent_40 disabled:bg-[grey]"
         >
           &lt;
         </button>
@@ -44,14 +44,14 @@ export default function Pagination({ appState, setAppState }: PropsType) {
         <button
           disabled={forwardDisabled}
           data-user-action="next"
-          className="w-[45px] rounded-full bg-accent_100 p-2 transition-all duration-300 hover:bg-purple_20 disabled:bg-[grey]"
+          className="w-[45px] rounded-full bg-accent_100 p-2 transition-all duration-300 hover:bg-accent_40 disabled:bg-[grey]"
         >
           &gt;
         </button>
         <button
           disabled={forwardDisabled}
           data-user-action="last"
-          className="w-[45px] rounded-full bg-accent_100 p-2 transition-all duration-300 hover:bg-purple_20 disabled:bg-[grey]"
+          className="w-[45px] rounded-full bg-accent_100 p-2 transition-all duration-300 hover:bg-accent_40 disabled:bg-[grey]"
         >
           &gt;&gt;
         </button>

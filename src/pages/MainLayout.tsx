@@ -4,7 +4,6 @@ import {
   ErrorThrower,
   Header,
   LimitSelector,
-  Pagination,
   SearchBar,
 } from '../components/indexComponents';
 import getCharList from '../service/getCharList';
@@ -18,7 +17,7 @@ export default function MainLayout() {
     throw new Error("OMG, you've pressed a button!");
   }
 
-  const { isLoading, charData, currPage, limit } = appState;
+  const { currPage, limit } = appState;
 
   useEffect(() => {
     getCharList(
@@ -42,12 +41,7 @@ export default function MainLayout() {
             <LimitSelector limit={limit} setAppState={setAppState} />
           </div>
         </div>
-        <CharList
-          currPage={currPage}
-          characters={charData}
-          isLoading={isLoading}
-        />
-        <Pagination appState={appState} setAppState={setAppState} />
+        <CharList appState={appState} setAppState={setAppState} />
       </div>
       <Outlet />
     </div>
