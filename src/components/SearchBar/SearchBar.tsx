@@ -2,7 +2,6 @@ import SubmitBtn from './ui/SubmitBtn';
 import TextInput from './ui/TextInput';
 import { StateType } from '../../shared/types';
 import getCharList from '../../service/getCharList';
-import { useNavigate } from 'react-router-dom';
 
 type PropsType = {
   appState: StateType;
@@ -11,7 +10,6 @@ type PropsType = {
 
 export default function SearchBar({ appState, setAppState }: PropsType) {
   const { searchValue, limit, currPage } = appState;
-  const navigation = useNavigate();
   return (
     <div className="mt-5">
       <form
@@ -22,7 +20,6 @@ export default function SearchBar({ appState, setAppState }: PropsType) {
             return { ...prev, currPage: 0 };
           });
           getCharList(searchValue, currPage, limit, setAppState);
-          navigation('/?page=1');
         }}
       >
         <TextInput

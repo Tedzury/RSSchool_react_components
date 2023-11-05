@@ -1,7 +1,6 @@
 import CharListItem from './ui/CharListItem';
 import { CharObj } from '../../shared/types';
 import Loader from '../Loader/Loader';
-import { Outlet, useNavigate } from 'react-router-dom';
 
 type PropsType = {
   characters: CharObj[];
@@ -14,22 +13,13 @@ export default function CharList({
   isLoading,
   currPage,
 }: PropsType) {
-  const navigation = useNavigate();
-
   const elements = characters.map((char) => {
     return <CharListItem key={char.name} char={char} currPage={currPage} />;
   });
 
-  function clickHandler(e: React.MouseEvent<HTMLUListElement, MouseEvent>) {
-    if ((e.target as Element).nodeName === 'UL')
-      navigation(`/?page=${currPage + 1}`);
-  }
-
   const charList =
     characters.length > 0 ? (
-      <ul onClick={(e) => clickHandler(e)} className="flex flex-col gap-3">
-        {elements}
-      </ul>
+      <ul className="flex flex-col gap-3">{elements}</ul>
     ) : (
       <div className="text-center">Sorry, there is no characters yet!</div>
     );
@@ -38,10 +28,7 @@ export default function CharList({
 
   return (
     <div className="mx-3 mt-5 flex gap-5 rounded-md border-4 border-accent_80 bg-main_bg p-3">
-      <div className="w-1/2">{content}</div>
-      <div className="w-1/2">
-        <Outlet />
-      </div>
+      <div className="w-full shrink transition-all duration-300">{content}</div>
     </div>
   );
 }

@@ -1,17 +1,14 @@
 import MainLayout from './pages/MainLayout';
 import CharCard, { loader as charLoader } from './components/CharCard/CharCard';
-import CharCardStub from './components/CharCardStub/CharCardStub';
+import ErrorFallback from './components/ErrorFallback/ErrorFallback';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout />,
+    errorElement: <ErrorFallback />,
     children: [
-      {
-        index: true,
-        element: <CharCardStub />,
-      },
       {
         path: ':id',
         element: <CharCard />,
