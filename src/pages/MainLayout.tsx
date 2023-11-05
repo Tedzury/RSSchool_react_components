@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
-import Header from '../components/Header/Header';
-import SearchBar from '../components/SearchBar/SearchBar';
-import CharList from '../components/CharList/CharList';
-import ErrorThrower from '../components/ErrorThrower/ErrorThrower';
+import {
+  CharList,
+  ErrorThrower,
+  Header,
+  LimitSelector,
+  Pagination,
+  SearchBar,
+} from '../components/indexComponents';
 import getCharList from '../service/getCharList';
 import { defaultState } from '../shared/constants/constants';
-import Pagination from '../components/Pagination/Pagination';
 import { Outlet } from 'react-router-dom';
-import LimitSelector from '../components/LimitSelector/LimitSelector';
 
 export default function MainLayout() {
   const [appState, setAppState] = useState(defaultState);

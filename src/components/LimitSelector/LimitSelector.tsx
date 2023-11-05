@@ -17,7 +17,7 @@ export default function LimitSelector({ limit, setAppState }: PropsType) {
           setAppState((prev) => {
             return { ...prev, limit: Number(e.target.value), currPage: 0 };
           })
-        } // ... and update the state variable on any change!
+        }
       >
         <option value="5">5</option>
         <option value="10">10</option>
