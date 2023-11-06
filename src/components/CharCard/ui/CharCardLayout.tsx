@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../Loader/Loader';
+import { useContext } from 'react';
+import { AppState } from '../../../pages/MainLayout';
 
 type PropsType = {
   isLoading: boolean;
@@ -14,14 +16,14 @@ type PropsType = {
 export default function CharCardLayout({ isLoading, char }: PropsType) {
   const navigate = useNavigate();
   const { name, description, thumbnail, comics } = char;
-  const currPage = localStorage.getItem('reactComponentCurrentPage') || 1;
+  const currPage = useContext(AppState).appState.currPage;
 
   function closeOutlet(target: EventTarget) {
     if (
       (target as HTMLElement).nodeName === 'BUTTON' ||
       (target as HTMLElement).classList.contains('overlay')
     )
-      navigate(`/?page=${Number(currPage) + 1}`);
+      navigate(`/?page=${currPage + 1}`);
   }
   const content = isLoading ? (
     <div className="flex h-full items-center justify-center">

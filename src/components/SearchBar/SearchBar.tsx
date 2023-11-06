@@ -1,14 +1,11 @@
 import SubmitBtn from './ui/SubmitBtn';
 import TextInput from './ui/TextInput';
-import { StateType } from '../../shared/types';
 import getCharList from '../../service/getCharList';
+import { useContext } from 'react';
+import { AppState } from '../../pages/MainLayout';
 
-type PropsType = {
-  appState: StateType;
-  setAppState: React.Dispatch<React.SetStateAction<StateType>>;
-};
-
-export default function SearchBar({ appState, setAppState }: PropsType) {
+export default function SearchBar() {
+  const { appState, setAppState } = useContext(AppState);
   const { searchValue, limit, currPage } = appState;
   return (
     <div className="mt-5">

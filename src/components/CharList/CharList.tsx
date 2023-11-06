@@ -1,14 +1,11 @@
 import CharListItem from './ui/CharListItem';
-import { StateType } from '../../shared/types';
 import Loader from '../Loader/Loader';
 import { Pagination } from '../indexComponents';
+import { useContext } from 'react';
+import { AppState } from '../../pages/MainLayout';
 
-type PropsType = {
-  appState: StateType;
-  setAppState: React.Dispatch<React.SetStateAction<StateType>>;
-};
-
-export default function CharList({ appState, setAppState }: PropsType) {
+export default function CharList() {
+  const { appState, setAppState } = useContext(AppState);
   const { charData, isLoading, currPage } = appState;
   const elements = charData.map((char) => {
     return <CharListItem key={char.name} char={char} currPage={currPage} />;
