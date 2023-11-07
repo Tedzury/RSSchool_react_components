@@ -9,6 +9,7 @@ import fetchCharacter from '../../service/fetchCharacter';
 import { CharObj } from '../../shared/types';
 import formatSingleCharData from '../../helpers/formatSingleCharData';
 import CharCardLayout from './ui/CharCardLayout';
+import getCharId from '../../helpers/getCharId';
 
 const Paths = {
   todoDetail: '/:id',
@@ -18,14 +19,9 @@ interface TodoLoaderArgs extends ActionFunctionArgs {
   params: Params<ParamParseKey<typeof Paths.todoDetail>>;
 }
 
-const idRegEx = /id=(\d*)/i;
-
 export async function loader({ params }: TodoLoaderArgs) {
-  const test = params.id;
-  const actualId = ((test as string).match(idRegEx) as RegExpMatchArray)[1];
-  const char = await fetchCharacter(actualId);
-
-  return char;
+  const id = getCharId(params.id);
+  return await fetchCharacter(id);
 }
 
 export default function CharCard() {
