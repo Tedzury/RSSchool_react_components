@@ -1,7 +1,7 @@
 import { StateType } from '../shared/types';
 import fetchCharactersList from './fetchCharactersList';
 
-export default async function getCharList(
+export default async function updateCharList(
   searchValue: string,
   currPage: number,
   limit: number,
@@ -18,6 +18,7 @@ export default async function getCharList(
     limit
   );
   const totalPages = Math.ceil(totalCount / limit) - 1;
+  history.pushState({}, '', `page=${(currPage + 1).toString()}`);
   setAppState((prev) => {
     return { ...prev, isLoading: false, totalPages, charData };
   });

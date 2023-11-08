@@ -6,7 +6,7 @@ import {
   LimitSelector,
   SearchBar,
 } from '../components/indexComponents';
-import getCharList from '../service/getCharList';
+import updateCharList from '../service/updateCharList';
 import { defaultState } from '../shared/constants/constants';
 import { Outlet } from 'react-router-dom';
 import { StateType } from '../shared/types';
@@ -28,13 +28,12 @@ export default function MainLayout() {
   const { currPage, limit } = appState;
 
   useEffect(() => {
-    getCharList(
+    updateCharList(
       localStorage.getItem('reactComponentSearchTerm') || '',
       currPage,
       limit,
       setAppState
     );
-    history.pushState({}, '', `page=${(currPage + 1).toString()}`);
   }, [currPage, limit]);
 
   return (

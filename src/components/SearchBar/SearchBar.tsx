@@ -1,6 +1,6 @@
 import SubmitBtn from './ui/SubmitBtn';
 import TextInput from './ui/TextInput';
-import getCharList from '../../service/getCharList';
+import updateCharList from '../../service/updateCharList';
 import { useContext } from 'react';
 import { AppState } from '../../pages/MainLayout';
 
@@ -16,7 +16,7 @@ export default function SearchBar() {
           setAppState((prev) => {
             return { ...prev, currPage: 0 };
           });
-          getCharList(searchValue, currPage, limit, setAppState);
+          updateCharList(searchValue, currPage, limit, setAppState);
         }}
       >
         <TextInput
