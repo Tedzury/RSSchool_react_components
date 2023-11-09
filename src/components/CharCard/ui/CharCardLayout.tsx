@@ -1,10 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import Loader from '../../Loader/Loader';
 import { useContext } from 'react';
 import { AppState } from '../../../pages/MainLayout';
 
 type PropsType = {
-  isLoading: boolean;
   char: {
     name: string;
     thumbnail: string;
@@ -13,7 +11,7 @@ type PropsType = {
   };
 };
 
-export default function CharCardLayout({ isLoading, char }: PropsType) {
+export default function CharCardLayout({ char }: PropsType) {
   const navigate = useNavigate();
   const { name, description, thumbnail, comics } = char;
   const currPage = useContext(AppState).appState.currPage;
@@ -25,11 +23,7 @@ export default function CharCardLayout({ isLoading, char }: PropsType) {
     )
       navigate(`/?page=${currPage + 1}`);
   }
-  const content = isLoading ? (
-    <div className="flex h-full items-center justify-center">
-      <Loader />
-    </div>
-  ) : (
+  return (
     <div
       onClick={(e) => closeOutlet(e.target)}
       data-testid="overlay"
@@ -58,5 +52,4 @@ export default function CharCardLayout({ isLoading, char }: PropsType) {
       </div>
     </div>
   );
-  return content;
 }

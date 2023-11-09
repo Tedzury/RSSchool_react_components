@@ -3,7 +3,6 @@ import {
   ParamParseKey,
   Params,
   useLoaderData,
-  useNavigation,
 } from 'react-router-dom';
 import fetchCharacter from '../../service/fetchCharacter';
 import { CharObj } from '../../shared/types';
@@ -27,8 +26,6 @@ export async function loader({ params }: TodoLoaderArgs) {
 export default function CharCard() {
   const char = useLoaderData() as CharObj;
   const formattedChar = formatSingleCharData(char);
-  const navigation = useNavigation();
-  const isLoading = navigation.state === 'loading';
 
-  return <CharCardLayout isLoading={isLoading} char={formattedChar} />;
+  return <CharCardLayout char={formattedChar} />;
 }

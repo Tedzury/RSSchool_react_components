@@ -8,16 +8,14 @@ import {
 } from '../components/indexComponents';
 import updateCharList from '../service/updateCharList';
 import { defaultState } from '../shared/constants/constants';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigation } from 'react-router-dom';
 import { StateType } from '../shared/types';
-// import { worker } from '../test/mockApi/browser';
+import CharCardLoader from '../components/CharCardLoader/CharCardLoader';
 
 type AppStateType = {
   appState: StateType;
   setAppState: React.Dispatch<React.SetStateAction<StateType>>;
 };
-
-// worker.start();
 
 export const AppState = createContext({} as AppStateType);
 
@@ -39,6 +37,9 @@ export default function MainLayout() {
     );
   }, [currPage, limit]);
 
+  const outletWrapper =
+    useNavigation().state === 'loading' ? <CharCardLoader /> : <Outlet />;
+
   return (
     <AppState.Provider
       value={{
@@ -58,7 +59,7 @@ export default function MainLayout() {
           </div>
           <CharList />
         </div>
-        <Outlet />
+        {outletWrapper}
       </div>
     </AppState.Provider>
   );
