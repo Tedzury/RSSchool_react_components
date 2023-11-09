@@ -21,7 +21,7 @@ export default function CharCardLayout({ isLoading, char }: PropsType) {
   function closeOutlet(target: EventTarget) {
     if (
       (target as HTMLElement).nodeName === 'BUTTON' ||
-      (target as HTMLElement).classList.contains('overlay')
+      (target as HTMLElement).getAttribute('data-testid') === 'overlay'
     )
       navigate(`/?page=${currPage + 1}`);
   }
@@ -32,14 +32,19 @@ export default function CharCardLayout({ isLoading, char }: PropsType) {
   ) : (
     <div
       onClick={(e) => closeOutlet(e.target)}
-      className="overlay absolute left-0 top-0 flex min-h-full w-full justify-end bg-[#5b5b9b3d]"
+      data-testid="overlay"
+      className="absolute left-0 top-0 flex min-h-full w-full justify-end bg-[#5b5b9b3d]"
     >
       <div className="max-w-[500px] bg-main_bg p-3">
         <div className="relative mb-[50px] mt-[387px] rounded-md border-2 border-purple_80 p-3">
           <div className="mt-10 flex justify-center">
-            <img className="max-w-[350px] rounded-md" src={thumbnail} alt="" />
+            <img
+              className="max-w-[350px] rounded-md"
+              src={thumbnail}
+              alt={`Picture of ${name}`}
+            />
           </div>
-          <p className="mt-5 text-center text-xl font-bold">{name}</p>
+          <h2 className="mt-5 text-center text-xl font-bold">{name}</h2>
           <p className="mt-5">{description}</p>
           <p className="mt-5 font-bold">Comics related to character:</p>
           <ul className="mt-5">{comics}</ul>

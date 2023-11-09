@@ -4,7 +4,7 @@ import { userEvent } from '@testing-library/user-event';
 
 import App from '../App';
 
-describe('Test #1', () => {
+describe('Characters list component testing', () => {
   it('After app starts, it should fetch and render 5 list items for characters.', async () => {
     render(<App />);
     const listItems = await screen.findAllByRole('listitem');

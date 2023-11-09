@@ -3,9 +3,13 @@ import {
   responseCharList,
   responseNoChars,
   responseCharListExtended,
+  responseSingleChar,
 } from './responseData';
 
 export const handlers = [
+  http.get('https://gateway.marvel.com/v1/public/characters/1011334', () => {
+    return HttpResponse.json(responseSingleChar);
+  }),
   http.get('https://gateway.marvel.com/v1/public/characters', ({ request }) => {
     const url = new URL(request.url);
     const searchName = url.searchParams.get('name');
