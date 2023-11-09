@@ -4,11 +4,15 @@ import {
   responseNoChars,
   responseCharListExtended,
   responseSingleChar,
+  responseSecondSingleChar,
 } from './responseData';
 
 export const handlers = [
   http.get('https://gateway.marvel.com/v1/public/characters/1011334', () => {
     return HttpResponse.json(responseSingleChar);
+  }),
+  http.get('https://gateway.marvel.com/v1/public/characters/1017100', () => {
+    return HttpResponse.json(responseSecondSingleChar);
   }),
   http.get('https://gateway.marvel.com/v1/public/characters', ({ request }) => {
     const url = new URL(request.url);

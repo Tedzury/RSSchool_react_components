@@ -23,6 +23,7 @@ expect.extend(matchers);
 
 beforeAll(() => server.listen());
 afterEach(() => {
+  (document.querySelector('body') as HTMLBodyElement).innerHTML = '';
   cleanup();
   server.resetHandlers();
 });
