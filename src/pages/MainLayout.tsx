@@ -10,11 +10,14 @@ import updateCharList from '../service/updateCharList';
 import { defaultState } from '../shared/constants/constants';
 import { Outlet } from 'react-router-dom';
 import { StateType } from '../shared/types';
+// import { worker } from '../test/mockApi/browser';
 
 type AppStateType = {
   appState: StateType;
   setAppState: React.Dispatch<React.SetStateAction<StateType>>;
 };
+
+// worker.start();
 
 export const AppState = createContext({} as AppStateType);
 
