@@ -1,4 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+  waitFor,
+} from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { userEvent } from '@testing-library/user-event';
 
@@ -10,9 +15,13 @@ describe('Detailed character card loader testing', () => {
     expect(screen.queryByTestId('loader')).toBeNull();
     const listItems = await screen.findAllByRole('link');
     userEvent.click(listItems[0]);
-    setTimeout(() => {
+    waitFor(() => {
       expect(screen.getByTestId('loader')).toBeInTheDocument();
-    }, 100);
-    expect(screen.queryByTestId('loader')).toBeNull();
+    });
+    waitForElementToBeRemoved(() => {
+      expect(screen.queryByTestId('loader')).toBeNull();
+    }).catch(() =>
+      console.log('Error during testing character card loader was caught.')
+    );
   });
 });

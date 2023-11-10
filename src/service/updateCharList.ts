@@ -18,7 +18,7 @@ export default async function updateCharList(
     limit
   );
   const totalPages = Math.ceil(totalCount / limit) - 1;
-  history.pushState({}, '', `page=${(currPage + 1).toString()}`);
+  history.pushState({}, '', `?page=${(currPage + 1).toString()}`);
   setAppState((prev) => {
     return { ...prev, isLoading: false, totalPages, charData };
   });

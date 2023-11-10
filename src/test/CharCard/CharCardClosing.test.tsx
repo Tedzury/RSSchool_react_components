@@ -30,6 +30,8 @@ describe('Detailed character card closing testing', () => {
       expect(screen.queryByAltText('Picture of 3-D Man')).toBeNull();
       expect(screen.queryByRole('heading', { level: 2 })).toBeNull();
       expect(screen.queryByTestId('overlay')).toBeNull();
-    }).catch((err) => console.log(err));
+    }).catch(() =>
+      console.log('Error during testing character card closing was caught.')
+    );
   });
 });
