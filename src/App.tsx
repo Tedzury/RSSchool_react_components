@@ -2,6 +2,7 @@ import MainLayout from './pages/MainLayout';
 import CharCard, { loader as charLoader } from './components/CharCard/CharCard';
 import ErrorFallback from './components/ErrorFallback/ErrorFallback';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import RouteFallback from './components/RouteFallback/RouteFallback';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
         path: ':id',
         element: <CharCard />,
         loader: charLoader,
+        errorElement: <RouteFallback />,
       },
     ],
   },

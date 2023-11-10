@@ -1,29 +1,25 @@
 import SubmitBtn from './ui/SubmitBtn';
 import TextInput from './ui/TextInput';
-import updateCharList from '../../service/updateCharList';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AppState } from '../../pages/MainLayout';
 
 export default function SearchBar() {
   const { appState, setAppState } = useContext(AppState);
-  const { searchValue, limit, currPage } = appState;
+  const { searchValue } = appState;
+  const [inputValue, setInputValue] = useState(searchValue);
   return (
     <div className="mt-5">
       <form
         className="flex justify-center gap-5"
         onSubmit={(e) => {
           e.preventDefault();
+          localStorage.setItem('reactComponentSearchTerm', inputValue.trim());
           setAppState((prev) => {
-            return { ...prev, currPage: 0 };
+            return { ...prev, currPage: 0, searchValue: inputValue };
           });
-          updateCharList(searchValue, currPage, limit, setAppState);
         }}
       >
-        <TextInput
-          placeholder="Type a name!"
-          value={searchValue}
-          setAppState={setAppState}
-        />
+        <TextInput value={inputValue} setInputValue={setInputValue} />
         <SubmitBtn />
       </form>
     </div>

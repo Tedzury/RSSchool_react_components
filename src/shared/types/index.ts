@@ -21,7 +21,6 @@ export type responseObj = {
 
 export type StateType = {
   searchValue: string;
-  isError: boolean;
   charData: CharObj[];
   isLoading: boolean;
   currPage: number;

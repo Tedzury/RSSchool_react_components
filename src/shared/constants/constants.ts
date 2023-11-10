@@ -5,7 +5,6 @@ const apiKey = 'd8fe8823c3b455a867e537974e39cd7e';
 
 const defaultState = {
   searchValue: localStorage.getItem('reactComponentSearchTerm') || '',
-  isError: false,
   charData: [] as CharObj[],
   isLoading: false,
   currPage: 0,

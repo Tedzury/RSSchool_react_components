@@ -7,7 +7,6 @@ export default async function updateCharList(
   limit: number,
   setAppState: React.Dispatch<React.SetStateAction<StateType>>
 ) {
-  localStorage.setItem('reactComponentSearchTerm', searchValue.trim());
   setAppState((prev) => {
     return { ...prev, isLoading: true };
   });

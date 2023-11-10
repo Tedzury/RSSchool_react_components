@@ -22,20 +22,11 @@ export const AppState = createContext({} as AppStateType);
 export default function MainLayout() {
   const [appState, setAppState] = useState(defaultState);
 
-  if (appState.isError === true) {
-    throw new Error("OMG, you've pressed a button!");
-  }
-
-  const { currPage, limit } = appState;
+  const { searchValue, currPage, limit } = appState;
 
   useEffect(() => {
-    updateCharList(
-      localStorage.getItem('reactComponentSearchTerm') || '',
-      currPage,
-      limit,
-      setAppState
-    );
-  }, [currPage, limit]);
+    updateCharList(searchValue, currPage, limit, setAppState);
+  }, [searchValue, currPage, limit]);
 
   const outletWrapper =
     useNavigation().state === 'loading' ? <CharCardLoader /> : <Outlet />;
@@ -53,7 +44,7 @@ export default function MainLayout() {
           <div className="mx-3 mt-6 rounded-md border-4 border-accent_80 bg-main_bg p-2">
             <SearchBar />
             <div className="mb-5 flex flex-col items-center gap-5">
-              <ErrorThrower setAppState={setAppState} />
+              <ErrorThrower />
               <LimitSelector limit={limit} setAppState={setAppState} />
             </div>
           </div>
