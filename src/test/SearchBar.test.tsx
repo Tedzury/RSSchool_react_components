@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import App from '../App';
@@ -14,6 +14,7 @@ const localStorageMock = (function () {
     },
   };
 })();
+
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
 describe('Testing search bar component', () => {
@@ -26,12 +27,11 @@ describe('Testing search bar component', () => {
       target: { value: 'Trololontiy' },
     });
     fireEvent.click(button);
-    waitFor(() => {
-      expect(localStorage.getItem('reactComponentSearchTerm')).toMatch(
-        'Trololontiy'
-      );
-    });
+    expect(localStorage.getItem('reactComponentSearchTerm')).toEqual(
+      'Trololontiy'
+    );
   });
+  // not implemented test
   // it('During app initialization it should retrieve search value from localStorage', async () => {
   //   const { rerender } = render(<App />);
   //   localStorage.setItem('reactComponentSearchTerm', 'La-la-la');

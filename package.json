@@ -14,6 +14,7 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "history": "^5.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -54,7 +55,7 @@
     "vitest": "^0.34.6"
   },
   "lint-staged": {
-    "./src/**/*.{tsx, ts}": "eslint",
+    "./src/**/*.{tsx, ts}": ["eslint", "vitest  related --run"],
     "./src/**/*.{tsx, ts, html, css}": "prettier --write"
   },
   "msw": {
