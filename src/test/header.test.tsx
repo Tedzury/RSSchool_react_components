@@ -10,6 +10,6 @@ describe('Header', () => {
       screen.getByRole('heading', {
         level: 1,
       })
-    ).toHaveTextContent('Marvel Characters!aaaaaaaaaaaaaaqq');
+    ).toHaveTextContent('Marvel Characters!');
   });
 });
