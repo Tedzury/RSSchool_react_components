@@ -27,3 +27,8 @@ export type StateType = {
   totalPages: number;
   limit: number;
 };
+
+export type AppStateType = {
+  appState: StateType;
+  setAppState: React.Dispatch<React.SetStateAction<StateType>>;
+};

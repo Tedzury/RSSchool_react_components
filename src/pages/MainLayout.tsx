@@ -7,20 +7,21 @@ import {
   SearchBar,
 } from '../components/indexComponents';
 import updateCharList from '../service/updateCharList';
-import { defaultState } from '../shared/constants/constants';
 import { Outlet, useNavigation } from 'react-router-dom';
-import { StateType } from '../shared/types';
+import { CharObj, AppStateType } from '../shared/types';
 import CharCardLoader from '../components/CharCardLoader/CharCardLoader';
-
-type AppStateType = {
-  appState: StateType;
-  setAppState: React.Dispatch<React.SetStateAction<StateType>>;
-};
 
 export const AppState = createContext({} as AppStateType);
 
 export default function MainLayout() {
-  const [appState, setAppState] = useState(defaultState);
+  const [appState, setAppState] = useState({
+    searchValue: localStorage.getItem('reactComponentSearchTerm') || '',
+    charData: [] as CharObj[],
+    isLoading: false,
+    currPage: 0,
+    totalPages: 0,
+    limit: 5,
+  });
 
   const { searchValue, currPage, limit } = appState;
 
