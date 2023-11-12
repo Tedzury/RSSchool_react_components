@@ -59,7 +59,7 @@
   "lint-staged": {
     "./src/**/*.{tsx, ts}": [
       "eslint",
-      "vitest  related --run"
+      "vitest related --run"
     ],
     "./src/**/*.{tsx, ts, html, css}": "prettier --write"
   },
