@@ -21,10 +21,14 @@ export type responseObj = {
 
 export type StateType = {
   searchValue: string;
-  isError: boolean;
   charData: CharObj[];
   isLoading: boolean;
   currPage: number;
   totalPages: number;
   limit: number;
+};
+
+export type AppStateType = {
+  appState: StateType;
+  setAppState: React.Dispatch<React.SetStateAction<StateType>>;
 };
