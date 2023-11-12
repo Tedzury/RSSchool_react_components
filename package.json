@@ -11,6 +11,7 @@
     "format:fix": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "prepare": "husky install",
     "test": "vitest",
+    "prePushTest": "vitest related --run",
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
@@ -58,8 +59,7 @@
   },
   "lint-staged": {
     "./src/**/*.{tsx, ts}": [
-      "eslint",
-      "vitest related --run"
+      "eslint"
     ],
     "./src/**/*.{tsx, ts, html, css}": "prettier --write"
   },
