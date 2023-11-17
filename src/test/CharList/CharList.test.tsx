@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { userEvent } from '@testing-library/user-event';
 
-import App from '../App';
+import App from '../../App';
 
 describe('Characters list component testing', () => {
   it('After app starts, it should fetch and render 5 list items for characters.', async () => {
