@@ -3,8 +3,8 @@ import {
   CharList,
   ErrorThrower,
   Header,
-  // LimitSelector,
-  // SearchBar,
+  LimitSelector,
+  SearchBar,
 } from '../components/indexComponents';
 import { Outlet, useNavigation } from 'react-router-dom';
 import { AppStateType } from '../shared/types';
@@ -23,10 +23,10 @@ export default function MainLayout() {
         <div className="w-1/2 grow">
           <Header />
           <div className="mx-3 mt-6 rounded-md border-4 border-accent_80 bg-main_bg p-2">
-            {/* <SearchBar /> */}
+            <SearchBar />
             <div className="mb-5 flex flex-col items-center gap-5">
               <ErrorThrower />
-              {/* <LimitSelector limit={limit} setAppState={setAppState} /> */}
+              <LimitSelector />
             </div>
           </div>
           <CharList />

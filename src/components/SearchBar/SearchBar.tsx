@@ -1,11 +1,12 @@
 import SubmitBtn from './ui/SubmitBtn';
 import TextInput from './ui/TextInput';
-import { useContext, useState } from 'react';
-import { AppState } from '../../pages/MainLayout';
+import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { setSearchValue } from '../../store/appStateSlice';
 
 export default function SearchBar() {
-  const { appState, setAppState } = useContext(AppState);
-  const { searchValue } = appState;
+  const dispatch = useAppDispatch();
+  const { searchValue } = useAppSelector((state) => state.appReducer);
   const [inputValue, setInputValue] = useState(searchValue);
   return (
     <div className="mt-5">
@@ -14,9 +15,10 @@ export default function SearchBar() {
         onSubmit={(e) => {
           e.preventDefault();
           localStorage.setItem('reactComponentSearchTerm', inputValue.trim());
-          setAppState((prev) => {
-            return { ...prev, currPage: 0, searchValue: inputValue };
-          });
+          dispatch(setSearchValue(inputValue));
+          // setAppState((prev) => {
+          //   return { ...prev, currPage: 0, searchValue: inputValue };
+          // });
         }}
       >
         <TextInput value={inputValue} setInputValue={setInputValue} />
