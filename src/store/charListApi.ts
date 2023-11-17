@@ -27,7 +27,10 @@ export const marvelApi = createApi({
           ? `?name=${searchValue}&limit=${limit}&offset=${offset}&apikey=${apiKey}`
           : `?&limit=${limit}&offset=${offset}&apikey=${apiKey}`,
     }),
+    getSingleChar: build.query<CharListResponse, number>({
+      query: (id) => `${id}?apikey=${apiKey}`,
+    }),
   }),
 });
 
-export const { useGetCharactersListQuery } = marvelApi;
+export const { useGetCharactersListQuery, useGetSingleCharQuery } = marvelApi;

@@ -9,8 +9,9 @@ import { Pagination } from '../indexComponents';
 
 export default function CharList() {
   const dispatch = useAppDispatch();
-  const { currPage, searchValue, limit, charData, isListLoading } =
-    useAppSelector((state) => state.appReducer);
+  const { currPage, searchValue, limit, charData } = useAppSelector(
+    (state) => state.appReducer
+  );
   const offset = limit * currPage;
   const { data, isLoading } = useGetCharactersListQuery({
     searchValue,
@@ -28,7 +29,6 @@ export default function CharList() {
   }, [data, dispatch, limit, currPage]);
 
   if (isLoading) return <Loader />;
-  if (isListLoading) return <Loader />;
   if (!data) return;
 
   const elements = charData.map((char) => {

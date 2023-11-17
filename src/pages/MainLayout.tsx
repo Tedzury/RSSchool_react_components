@@ -6,17 +6,14 @@ import {
   LimitSelector,
   SearchBar,
 } from '../components/indexComponents';
-import { Outlet, useNavigation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { AppStateType } from '../shared/types';
-import CharCardLoader from '../components/CharCardLoader/CharCardLoader';
 import { store } from '../store/store';
 import { Provider } from 'react-redux';
 
 export const AppState = createContext({} as AppStateType);
 
 export default function MainLayout() {
-  const outletWrapper =
-    useNavigation().state === 'loading' ? <CharCardLoader /> : <Outlet />;
   return (
     <Provider store={store}>
       <div className="relative mx-auto flex min-h-fit max-w-[1025px]">
@@ -31,7 +28,7 @@ export default function MainLayout() {
           </div>
           <CharList />
         </div>
-        {outletWrapper}
+        <Outlet />
       </div>
     </Provider>
   );
