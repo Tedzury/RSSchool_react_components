@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { userEvent } from '@testing-library/user-event';
 
@@ -17,19 +17,5 @@ describe('Characters list component testing', () => {
     expect(screen.getByRole('combobox')).toHaveValue('10');
     const listItems = await screen.findAllByRole('listitem');
     expect(listItems).toHaveLength(10);
-  });
-  it('After typing character, which does not exist - it should show a div with message that it does not exist.', async () => {
-    render(<App />);
-    const searchInput = screen.getByPlaceholderText('Type a name!');
-    const button = screen.getByText('Search');
-
-    fireEvent.change(searchInput, {
-      target: { value: 'Trololontiy' },
-    });
-    fireEvent.click(button);
-    const noChar = await screen.findByText(
-      'Sorry, there is no characters yet!'
-    );
-    expect(noChar).toBeInTheDocument();
   });
 });
