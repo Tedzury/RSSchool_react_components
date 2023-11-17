@@ -13,7 +13,7 @@ export default function CharList() {
     (state) => state.appReducer
   );
   const offset = limit * currPage;
-  const { data, isLoading } = useGetCharactersListQuery({
+  const { data, isFetching } = useGetCharactersListQuery({
     searchValue,
     limit,
     offset,
@@ -28,7 +28,7 @@ export default function CharList() {
     dispatch(setCharList({ charData, totalPages }));
   }, [data, dispatch, limit, currPage]);
 
-  if (isLoading) return <Loader />;
+  if (isFetching) return <Loader />;
   if (!data) return;
 
   const elements = charData.map((char) => {

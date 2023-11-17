@@ -41,6 +41,9 @@ export const appStateSlice = createSlice({
       state.isListLoading = true;
       state.charData = [];
     },
+    setDetailsLoading: (state, action: PayloadAction<boolean>) => {
+      state.isDetailsLoading = action.payload;
+    },
     setCharList: (
       state,
       action: PayloadAction<{ charData: CharObj[]; totalPages: number }>
@@ -58,6 +61,7 @@ export const {
   setPage,
   initListLoading,
   setCharList,
+  setDetailsLoading,
 } = appStateSlice.actions;
 
 export default appStateSlice.reducer;
