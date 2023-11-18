@@ -29,9 +29,14 @@ export type AppStateType = {
   isDetailsLoading: boolean;
 };
 
-export type CharListResponse = {
+export type CharListResp = {
   data: {
     total: number;
     results: responseObj[];
   };
+};
+
+export type ChatListRespFormatted = {
+  charData: Partial<CharObj>[];
+  totalResults: number;
 };

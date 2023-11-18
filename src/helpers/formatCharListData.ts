@@ -1,16 +1,14 @@
 import { CharObj, responseObj } from '../shared/types';
 
-export function formatCharListData(initData: responseObj[]): CharObj[] {
+export function formatCharListData(
+  initData: responseObj[]
+): Partial<CharObj>[] {
   return initData.map((char: responseObj) => {
-    const { name, id, description, thumbnail, comics } = char;
+    const { name, id, thumbnail } = char;
     return {
       name,
       id,
-      description,
       thumbnail: `${thumbnail.path}.${thumbnail.extension}`,
-      comics: comics.items?.map((comic) => {
-        return comic.name;
-      }),
     };
   });
 }

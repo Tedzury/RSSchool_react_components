@@ -2,7 +2,6 @@ import CharListItem from './ui/CharListItem';
 import Loader from '../Loader/Loader';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { useGetCharactersListQuery } from '../../shared/service/charListApi';
-import { formatCharListData } from '../../helpers/formatCharListData';
 import { setCharList, initListLoading } from '../../store/appStateSlice';
 import { useEffect } from 'react';
 import { Pagination } from '../indexComponents';
@@ -23,8 +22,8 @@ export default function CharList() {
     dispatch(initListLoading());
     if (!data) return;
     history.pushState({}, '', `?page=${(currPage + 1).toString()}`);
-    const totalPages = Math.ceil(data.data.total / limit) - 1;
-    const charData = formatCharListData(data?.data.results);
+    const { charData, totalResults } = data;
+    const totalPages = Math.ceil(totalResults / limit) - 1;
     dispatch(setCharList({ charData, totalPages }));
   }, [data, dispatch, limit, currPage]);
 

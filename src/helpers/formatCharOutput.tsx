@@ -1,6 +1,6 @@
 import { CharObj } from '../shared/types';
 
-export default function formatSingleCharData(char: CharObj) {
+export default function formatCharOutput(char: CharObj) {
   const { name, description, thumbnail, comics } = char;
   const formatDesc =
     description.length > 0
