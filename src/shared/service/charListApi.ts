@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { responseObj } from '../shared/types';
+import { CharListResponse } from '../types';
 
 const baseUrl = 'https://gateway.marvel.com:443/v1/public/characters';
 const apiKey = 'd8fe8823c3b455a867e537974e39cd7e';
@@ -8,13 +8,6 @@ type charListArgs = {
   searchValue: string;
   limit: number;
   offset: number;
-};
-
-export type CharListResponse = {
-  data: {
-    total: number;
-    results: responseObj[];
-  };
 };
 
 export const marvelApi = createApi({

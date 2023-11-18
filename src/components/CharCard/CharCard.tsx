@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import formatSingleCharData from '../../helpers/formatSingleCharData';
 import CharCardLayout from './ui/CharCardLayout';
 import getCharId from '../../helpers/getCharId';
-import { useGetSingleCharQuery } from '../../store/charListApi';
+import { useGetSingleCharQuery } from '../../shared/service/charListApi';
 import CharCardLoader from '../CharCardLoader/CharCardLoader';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../store/hooks';

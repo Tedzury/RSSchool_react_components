@@ -16,9 +16,6 @@ export default function SearchBar() {
           e.preventDefault();
           localStorage.setItem('reactComponentSearchTerm', inputValue.trim());
           dispatch(setSearchValue(inputValue));
-          // setAppState((prev) => {
-          //   return { ...prev, currPage: 0, searchValue: inputValue };
-          // });
         }}
       >
         <TextInput value={inputValue} setInputValue={setInputValue} />

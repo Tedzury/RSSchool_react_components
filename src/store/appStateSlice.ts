@@ -1,16 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { CharObj } from '../shared/types/index';
-
-export type AppStateType = {
-  searchValue: string;
-  charData: CharObj[];
-  currPage: number;
-  totalPages: number;
-  limit: number;
-  isListLoading: boolean;
-  isDetailsLoading: boolean;
-};
+import { CharObj, AppStateType } from '../shared/types/index';
 
 const initialState: AppStateType = {
   searchValue: localStorage.getItem('reactComponentSearchTerm') || '',

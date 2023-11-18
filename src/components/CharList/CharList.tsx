@@ -1,7 +1,7 @@
 import CharListItem from './ui/CharListItem';
 import Loader from '../Loader/Loader';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { useGetCharactersListQuery } from '../../store/charListApi';
+import { useGetCharactersListQuery } from '../../shared/service/charListApi';
 import { formatCharListData } from '../../helpers/formatCharListData';
 import { setCharList, initListLoading } from '../../store/appStateSlice';
 import { useEffect } from 'react';
@@ -28,9 +28,6 @@ export default function CharList() {
     dispatch(setCharList({ charData, totalPages }));
   }, [data, dispatch, limit, currPage]);
 
-  if (isFetching) return <Loader />;
-  if (!data) return;
-
   const elements = charData.map((char) => {
     return <CharListItem key={char.name} char={char} currPage={currPage} />;
   });
@@ -45,11 +42,11 @@ export default function CharList() {
       <div className="text-center">Sorry, there is no characters yet!</div>
     );
 
+  const content = isFetching ? <Loader /> : charList;
+
   return (
     <div className="mx-3 mt-5 flex flex-col gap-5 rounded-md border-4 border-accent_80 bg-main_bg p-3">
-      <div className="w-full shrink transition-all duration-300">
-        {charList}
-      </div>
+      <div className="w-full shrink transition-all duration-300">{content}</div>
     </div>
   );
 }

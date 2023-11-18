@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import appReducer from './appStateSlice';
-import { marvelApi } from './charListApi';
+import { marvelApi } from '../shared/service/charListApi';
 
 export const store = configureStore({
   reducer: {

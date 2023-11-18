@@ -1,4 +1,3 @@
-import { createContext } from 'react';
 import {
   CharList,
   ErrorThrower,
@@ -7,11 +6,8 @@ import {
   SearchBar,
 } from '../components/indexComponents';
 import { Outlet } from 'react-router-dom';
-import { AppStateType } from '../shared/types';
 import { store } from '../store/store';
 import { Provider } from 'react-redux';
-
-export const AppState = createContext({} as AppStateType);
 
 export default function MainLayout() {
   return (

@@ -19,16 +19,19 @@ export type responseObj = {
   };
 };
 
-export type StateType = {
+export type AppStateType = {
   searchValue: string;
   charData: CharObj[];
-  isLoading: boolean;
   currPage: number;
   totalPages: number;
   limit: number;
+  isListLoading: boolean;
+  isDetailsLoading: boolean;
 };
 
-export type AppStateType = {
-  appState: StateType;
-  setAppState: React.Dispatch<React.SetStateAction<StateType>>;
+export type CharListResponse = {
+  data: {
+    total: number;
+    results: responseObj[];
+  };
 };
