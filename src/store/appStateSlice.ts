@@ -4,7 +4,7 @@ import { CharObj, AppStateType } from '../shared/types/index';
 
 const initialState: AppStateType = {
   searchValue: localStorage.getItem('reactComponentSearchTerm') || '',
-  charData: [] as CharObj[],
+  charData: [] as Partial<CharObj>[],
   currPage: 0,
   totalPages: 0,
   limit: 5,
@@ -36,7 +36,10 @@ export const appStateSlice = createSlice({
     },
     setCharList: (
       state,
-      action: PayloadAction<{ charData: CharObj[]; totalPages: number }>
+      action: PayloadAction<{
+        charData: Partial<CharObj>[];
+        totalPages: number;
+      }>
     ) => {
       state.isListLoading = false;
       state.charData = action.payload.charData;

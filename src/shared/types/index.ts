@@ -21,7 +21,7 @@ export type responseObj = {
 
 export type AppStateType = {
   searchValue: string;
-  charData: CharObj[];
+  charData: Partial<CharObj>[];
   currPage: number;
   totalPages: number;
   limit: number;
