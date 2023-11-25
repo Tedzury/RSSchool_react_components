@@ -1,26 +1,18 @@
-import { StateType } from '../../shared/types';
 import getPaginationMove from '../../helpers/getPaginationMove';
-import { useNavigate } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { setPage } from '../../store/appStateSlice';
 
-type PropsType = {
-  appState: StateType;
-  setAppState: React.Dispatch<React.SetStateAction<StateType>>;
-};
-
-export default function Pagination({ appState, setAppState }: PropsType) {
-  const { currPage, totalPages } = appState;
+export default function Pagination() {
+  const dispatch = useAppDispatch();
+  const { currPage, totalPages } = useAppSelector((state) => state.appReducer);
   const backDisabled = currPage <= 0;
   const forwardDisabled = currPage >= totalPages;
-  const navigation = useNavigate();
 
   function clickHandler(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     const attr = (e.target as HTMLElement).getAttribute('data-user-action');
     if (attr) {
       const nextPage = getPaginationMove(attr, currPage, totalPages);
-      setAppState((prev) => {
-        return { ...prev, currPage: nextPage };
-      });
-      navigation('/');
+      dispatch(setPage(nextPage));
     }
   }
   return (

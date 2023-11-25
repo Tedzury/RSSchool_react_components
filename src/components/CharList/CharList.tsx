@@ -1,27 +1,47 @@
 import CharListItem from './ui/CharListItem';
 import Loader from '../Loader/Loader';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { useGetCharactersListQuery } from '../../shared/service/charListApi';
+import { setCharList, initListLoading } from '../../store/appStateSlice';
+import { useEffect } from 'react';
 import { Pagination } from '../indexComponents';
-import { useContext } from 'react';
-import { AppState } from '../../pages/MainLayout';
 
 export default function CharList() {
-  const { appState, setAppState } = useContext(AppState);
-  const { charData, isLoading, currPage } = appState;
+  const dispatch = useAppDispatch();
+  const { currPage, searchValue, limit, charData } = useAppSelector(
+    (state) => state.appReducer
+  );
+  const offset = limit * currPage;
+  const { data, isFetching } = useGetCharactersListQuery({
+    searchValue,
+    limit,
+    offset,
+  });
+
+  useEffect(() => {
+    dispatch(initListLoading());
+    if (!data) return;
+    history.pushState({}, '', `?page=${(currPage + 1).toString()}`);
+    const { charData, totalResults } = data;
+    const totalPages = Math.ceil(totalResults / limit) - 1;
+    dispatch(setCharList({ charData, totalPages }));
+  }, [data, dispatch, limit, currPage]);
+
   const elements = charData.map((char) => {
     return <CharListItem key={char.name} char={char} currPage={currPage} />;
   });
 
   const charList =
-    charData.length > 0 ? (
+    elements.length > 0 ? (
       <div>
         <ul className="flex flex-col gap-3">{elements}</ul>
-        <Pagination appState={appState} setAppState={setAppState} />
+        <Pagination />
       </div>
     ) : (
       <div className="text-center">Sorry, there is no characters yet!</div>
     );
 
-  const content = isLoading ? <Loader /> : charList;
+  const content = isFetching ? <Loader /> : charList;
 
   return (
     <div className="mx-3 mt-5 flex flex-col gap-5 rounded-md border-4 border-accent_80 bg-main_bg p-3">

@@ -1,31 +1,26 @@
-import {
-  ActionFunctionArgs,
-  ParamParseKey,
-  Params,
-  useLoaderData,
-} from 'react-router-dom';
-import fetchCharacter from '../../service/fetchCharacter';
-import { CharObj } from '../../shared/types';
-import formatSingleCharData from '../../helpers/formatSingleCharData';
+import { useParams } from 'react-router-dom';
+import formatCharOutput from '../../helpers/formatCharOutput';
 import CharCardLayout from './ui/CharCardLayout';
 import getCharId from '../../helpers/getCharId';
-
-const Paths = {
-  todoDetail: '/:id',
-} as const;
-
-interface TodoLoaderArgs extends ActionFunctionArgs {
-  params: Params<ParamParseKey<typeof Paths.todoDetail>>;
-}
-
-export async function loader({ params }: TodoLoaderArgs) {
-  const id = getCharId(params.id);
-  return await fetchCharacter(id);
-}
+import { useGetSingleCharQuery } from '../../shared/service/charListApi';
+import CharCardLoader from '../CharCardLoader/CharCardLoader';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../store/hooks';
+import { setDetailsLoading } from '../../store/appStateSlice';
 
 export default function CharCard() {
-  const char = useLoaderData() as CharObj;
-  const formattedChar = formatSingleCharData(char);
+  const dispatch = useAppDispatch();
+  const { id } = useParams();
+  const actualId = getCharId(id);
+  const { data, isLoading } = useGetSingleCharQuery(actualId);
+
+  useEffect(() => {
+    dispatch(setDetailsLoading(isLoading));
+  }, [isLoading, dispatch]);
+
+  if (isLoading) return <CharCardLoader />;
+  if (!data) return;
+  const formattedChar = formatCharOutput(data);
 
   return <CharCardLayout char={formattedChar} />;
 }

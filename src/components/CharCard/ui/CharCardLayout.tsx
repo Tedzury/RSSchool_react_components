@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
-import { AppState } from '../../../pages/MainLayout';
+import { useAppSelector } from '../../../store/hooks';
 
 type PropsType = {
   char: {
@@ -14,7 +13,7 @@ type PropsType = {
 export default function CharCardLayout({ char }: PropsType) {
   const navigate = useNavigate();
   const { name, description, thumbnail, comics } = char;
-  const currPage = useContext(AppState).appState.currPage;
+  const { currPage } = useAppSelector((state) => state.appReducer);
 
   function closeOutlet(target: EventTarget) {
     if (

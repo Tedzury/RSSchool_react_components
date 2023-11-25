@@ -1,11 +1,9 @@
-import { StateType } from '../../shared/types';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { setLimit } from '../../store/appStateSlice';
 
-type PropsType = {
-  limit: number;
-  setAppState: React.Dispatch<React.SetStateAction<StateType>>;
-};
-
-export default function LimitSelector({ limit, setAppState }: PropsType) {
+export default function LimitSelector() {
+  const dispatch = useAppDispatch();
+  const { limit } = useAppSelector((state) => state.appReducer);
   return (
     <label className="flex gap-5 font-bold" htmlFor="limitSelector">
       Select char number/page:
@@ -13,11 +11,7 @@ export default function LimitSelector({ limit, setAppState }: PropsType) {
         id="limitSelector"
         value={limit}
         className="rounded-md"
-        onChange={(e) =>
-          setAppState((prev) => {
-            return { ...prev, limit: Number(e.target.value), currPage: 0 };
-          })
-        }
+        onChange={(e) => dispatch(setLimit(Number(e.target.value)))}
       >
         <option value="5">5</option>
         <option value="10">10</option>

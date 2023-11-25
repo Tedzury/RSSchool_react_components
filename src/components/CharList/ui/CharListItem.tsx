@@ -2,7 +2,7 @@ import { CharObj } from '../../../shared/types';
 import { NavLink } from 'react-router-dom';
 
 type PropsType = {
-  char: CharObj;
+  char: Partial<CharObj>;
   currPage: number;
 };
 
