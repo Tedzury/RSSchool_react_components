@@ -9,7 +9,7 @@ export default function LimitSelector() {
         id="limitSelector"
         className="rounded-md"
         value={router.query.limit ?? 5}
-        onChange={(e) => router.replace(`?&page=1&limit=${e.target.value}`)}
+        onChange={(e) => router.push(`?&page=1&limit=${e.target.value}`)}
       >
         <option value="5">5</option>
         <option value="10">10</option>
