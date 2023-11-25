@@ -11,6 +11,6 @@ export default function getPaginationMove(
     case 'last':
       return totalPages;
     default:
-      return 0;
+      return 1;
   }
 }

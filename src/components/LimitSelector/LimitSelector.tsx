@@ -1,17 +1,15 @@
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setLimit } from '../../store/appStateSlice';
+import { useRouter } from 'next/router';
 
 export default function LimitSelector() {
-  const dispatch = useAppDispatch();
-  const { limit } = useAppSelector((state) => state.appReducer);
+  const router = useRouter();
   return (
     <label className="flex gap-5 font-bold" htmlFor="limitSelector">
       Select char number/page:
       <select
         id="limitSelector"
-        value={limit}
         className="rounded-md"
-        onChange={(e) => dispatch(setLimit(Number(e.target.value)))}
+        value={router.query.limit ?? 5}
+        onChange={(e) => router.replace(`?&page=1&limit=${e.target.value}`)}
       >
         <option value="5">5</option>
         <option value="10">10</option>

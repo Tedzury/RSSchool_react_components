@@ -1,24 +1,21 @@
 import SubmitBtn from './ui/SubmitBtn';
 import TextInput from './ui/TextInput';
-import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setSearchValue } from '../../store/appStateSlice';
+import { useRouter } from 'next/router';
 
 export default function SearchBar() {
-  const dispatch = useAppDispatch();
-  const { searchValue } = useAppSelector((state) => state.appReducer);
-  const [inputValue, setInputValue] = useState(searchValue);
+  const router = useRouter();
   return (
     <div className="mt-5">
       <form
         className="flex justify-center gap-5"
         onSubmit={(e) => {
           e.preventDefault();
-          localStorage.setItem('reactComponentSearchTerm', inputValue.trim());
-          dispatch(setSearchValue(inputValue));
+          const formData = new FormData(e.target as HTMLFormElement);
+          const formProps = Object.fromEntries(formData);
+          router.replace(`?name=${formProps.search}&page=1`);
         }}
       >
-        <TextInput value={inputValue} setInputValue={setInputValue} />
+        <TextInput />
         <SubmitBtn />
       </form>
     </div>

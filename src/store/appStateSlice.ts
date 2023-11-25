@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { CharObj, AppStateType } from '../shared/types/index';
 
 const initialState: AppStateType = {
-  searchValue: localStorage.getItem('reactComponentSearchTerm') || '',
+  searchValue: '',
   charData: [] as Partial<CharObj>[],
   currPage: 0,
   totalPages: 0,

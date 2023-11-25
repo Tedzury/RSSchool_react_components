@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 
 export default function ErrorFallback() {
   return (
-    <div className="flex h-[100dvh] w-full items-center justify-center bg-main-bg bg-cover bg-center bg-no-repeat">
+    <div className="bg-main-bg flex h-[100dvh] w-full items-center justify-center bg-cover bg-center bg-no-repeat">
       <div className="mx-3 max-w-[500px] rounded-xl border-2 border-[grey] bg-main_bg p-3 text-center text-lg">
         Woooops !
         <br />

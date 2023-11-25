@@ -1,17 +1,17 @@
 import { CharObj } from '../../../shared/types';
-import { NavLink } from 'react-router-dom';
+import Link from 'next/link';
 
 type PropsType = {
   char: Partial<CharObj>;
-  currPage: number;
+  queryStr: string;
 };
 
-export default function CharListItem({ char, currPage }: PropsType) {
+export default function CharListItem({ char, queryStr }: PropsType) {
   const { name, id, thumbnail } = char;
 
   return (
     <li data-id={id}>
-      <NavLink to={`/page=${currPage + 1}&id=${id}`}>
+      <Link href={`/${id}${queryStr}`}>
         <div className="flex cursor-pointer items-center justify-center gap-5 rounded-md border-2 border-purple_80 bg-main_bg p-3 font-bold transition-all duration-300 hover:scale-[1.005] hover:bg-accent_40">
           <div className="w-[200px] min-w-[90px]">
             <img
@@ -22,7 +22,7 @@ export default function CharListItem({ char, currPage }: PropsType) {
           </div>
           <h3 className="text-md w-full text-center lg:text-lg">{name}</h3>
         </div>
-      </NavLink>
+      </Link>
     </li>
   );
 }

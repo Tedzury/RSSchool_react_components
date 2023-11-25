@@ -1,26 +1,15 @@
-import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../../store/hooks';
+import { useRouter } from 'next/router';
 
-type PropsType = {
-  char: {
-    name: string;
-    thumbnail: string;
-    description: string;
-    comics: JSX.Element | JSX.Element[];
-  };
-};
-
-export default function CharCardLayout({ char }: PropsType) {
-  const navigate = useNavigate();
+export default function CharCardLayout({ char }) {
+  const router = useRouter();
   const { name, description, thumbnail, comics } = char;
-  const { currPage } = useAppSelector((state) => state.appReducer);
 
   function closeOutlet(target: EventTarget) {
     if (
       (target as HTMLElement).nodeName === 'BUTTON' ||
       (target as HTMLElement).getAttribute('data-testid') === 'overlay'
     )
-      navigate(`/?page=${currPage + 1}`);
+      router.back();
   }
   return (
     <div

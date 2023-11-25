@@ -1,18 +1,21 @@
 import getPaginationMove from '../../helpers/getPaginationMove';
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { setPage } from '../../store/appStateSlice';
+import { useRouter } from 'next/router';
 
-export default function Pagination() {
-  const dispatch = useAppDispatch();
-  const { currPage, totalPages } = useAppSelector((state) => state.appReducer);
-  const backDisabled = currPage <= 0;
-  const forwardDisabled = currPage >= totalPages;
-
+export default function Pagination({ totalResults, queryStr }) {
+  const router = useRouter();
+  const limit = (router.query.limit as string) ?? 5;
+  const totalPages = Math.ceil(totalResults / Number(limit));
+  const currPage = (router.query.page as string) ?? 1;
+  const backDisabled = Number(currPage) <= 1;
+  const forwardDisabled = Number(currPage) >= totalPages;
   function clickHandler(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     const attr = (e.target as HTMLElement).getAttribute('data-user-action');
     if (attr) {
-      const nextPage = getPaginationMove(attr, currPage, totalPages);
-      dispatch(setPage(nextPage));
+      const nextPage = getPaginationMove(attr, Number(currPage), totalPages);
+      const newQuery = router.query.page
+        ? queryStr.replace(/page=\d{1,3}/, `page=${nextPage}`)
+        : (queryStr += `&page=${nextPage}`);
+      router.push(newQuery);
     }
   }
   return (
@@ -32,7 +35,7 @@ export default function Pagination() {
         >
           &lt;
         </button>
-        <p className="text-3xl font-bold">{currPage + 1}</p>
+        <p className="text-3xl font-bold">{currPage}</p>
         <button
           disabled={forwardDisabled}
           data-user-action="next"
