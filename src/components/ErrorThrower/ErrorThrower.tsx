@@ -1,23 +1,20 @@
-import { Component } from 'react';
+import { useState } from 'react';
 
-type PropsType = {
-  setError: () => void;
-};
+export default function ErrorThrower() {
+  const [isError, setIsError] = useState(false);
 
-class ErrorThrower extends Component<PropsType> {
-  render() {
-    return (
-      <div className="mt-5 flex justify-center">
-        <button
-          type="button"
-          className="w-[300px] rounded-md bg-[yellow] px-2 py-1 font-bold"
-          onClick={this.props.setError}
-        >
-          Throw an error!
-        </button>
-      </div>
-    );
+  if (isError) {
+    throw new Error("OMG, you've pressed a button!");
   }
+  return (
+    <div className="mt-5 flex justify-center">
+      <button
+        type="button"
+        className="w-[300px] rounded-md bg-blue_20 px-2 py-1 font-bold transition-all duration-300 hover:bg-purple_20"
+        onClick={() => setIsError(true)}
+      >
+        Throw an error!
+      </button>
+    </div>
+  );
 }
-
-export default ErrorThrower;

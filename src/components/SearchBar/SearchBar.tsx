@@ -1,36 +1,30 @@
-import { Component } from 'react';
-
+import { useEffect, useState } from 'react';
 import SubmitBtn from './ui/SubmitBtn';
 import TextInput from './ui/TextInput';
+import { useRouter } from 'next/router';
 
-type PropsType = {
-  value: string;
-  setSearch: (value: string) => void;
-  getCharData: () => Promise<void>;
-};
-
-class SearchBar extends Component<PropsType> {
-  render() {
-    const { value, setSearch, getCharData } = this.props;
-    return (
-      <div className="mt-5">
-        <form
-          className="flex justify-center gap-5"
-          onSubmit={(e) => {
-            e.preventDefault();
-            getCharData();
-          }}
-        >
-          <TextInput
-            placeholder="Type a name!"
-            value={value}
-            setSearch={setSearch}
-          />
-          <SubmitBtn />
-        </form>
-      </div>
-    );
-  }
+export default function SearchBar() {
+  const router = useRouter();
+  const [searchValue, setSearchValue] = useState(
+    (router.query.name as string) ?? ''
+  );
+  const limit = router.query.limit ? router.query.limit : 5;
+  useEffect(() => {
+    setSearchValue((router.query.name as string) ?? '');
+  }, [router, setSearchValue]);
+  return (
+    <div className="mt-5">
+      <form
+        className="flex justify-center gap-5"
+        onSubmit={(e) => {
+          e.preventDefault();
+          localStorage.setItem('reactComponentSearchTerm', searchValue);
+          router.push(`?&page=1&limit=${limit}&name=${searchValue}`);
+        }}
+      >
+        <TextInput searchValue={searchValue} setSearchValue={setSearchValue} />
+        <SubmitBtn />
+      </form>
+    </div>
+  );
 }
-
-export default SearchBar;

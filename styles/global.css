@@ -5,6 +5,8 @@
 body {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
     'Lucida Sans', Arial, sans-serif;
+  background-image: url('../public/assets/img/universe_bg.jpg');
+  scroll-behavior: smooth;
 }
 
 .lds-dual-ring {

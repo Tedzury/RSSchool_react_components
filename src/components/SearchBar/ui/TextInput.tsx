@@ -1,24 +1,21 @@
-import { Component } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 type PropsType = {
-  value: string;
-  placeholder: string;
-  setSearch: (value: string) => void;
+  searchValue: string;
+  setSearchValue: Dispatch<SetStateAction<string>>;
 };
 
-class TextInput extends Component<PropsType> {
-  render() {
-    const { value, placeholder, setSearch } = this.props;
-    return (
-      <input
-        type="text"
-        placeholder={placeholder}
-        className="rounded-md pl-3"
-        value={value}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-    );
-  }
+function TextInput({ searchValue, setSearchValue }: PropsType) {
+  return (
+    <input
+      name="search"
+      type="text"
+      placeholder="Type a name!"
+      value={searchValue}
+      onChange={(e) => setSearchValue(e.target.value)}
+      className="rounded-md border-[3px] border-purple_40 pl-3 outline-blue_100"
+    />
+  );
 }
 
 export default TextInput;
