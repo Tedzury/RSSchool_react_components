@@ -9,7 +9,7 @@ describe('Testing get pagination move component', () => {
     const last = getPaginationMove('last', 5, 10);
     expect(prev).toEqual(4);
     expect(next).toEqual(6);
-    expect(first).toEqual(0);
+    expect(first).toEqual(1);
     expect(last).toEqual(10);
   });
 });

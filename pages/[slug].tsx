@@ -5,7 +5,7 @@ import { CharCard } from '../src/components/indexComponents';
 import { formatCharData } from '../src/helpers/formatCharData';
 import getCharId from '../src/helpers/getCharId';
 
-export default function ({ data, totalResults }) {
+export default function DetailsPage({ data, totalResults }) {
   return (
     <MainLayout charListData={data.charListData} totalResults={totalResults}>
       <CharCard charData={data.charData} />

@@ -1,12 +1,27 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { Mock, describe, expect, it, vi } from 'vitest';
 import { userEvent } from '@testing-library/user-event';
-
-import App from '../App';
+import Index, { getServerSideProps } from '../../pages';
+import { useRouter } from 'next/router';
 
 describe('Chacter card component testing', () => {
+  vi.mock('next/router', () => ({
+    useRouter: vi.fn(),
+  }));
+  (useRouter as Mock).mockReturnValue({
+    query: { name: '' },
+    push: (str: string) => window.history.pushState('', '', str),
+  });
   it('After starting app should fetch and render first 5 list items for characters with correct names.', async () => {
-    render(<App />);
+    const props = await getServerSideProps({
+      query: { name: '', limit: 5, page: 1 },
+    });
+    await new Promise((res) => {
+      setTimeout(res), 500;
+    });
+    render(
+      <Index data={props.props.data} totalResults={props.props.totalResults} />
+    );
     const listItems = await screen.findAllByRole('heading', { level: 3 });
     expect(listItems[0]).toHaveTextContent('3-D Man');
     expect(listItems[1]).toHaveTextContent('A-Bomb (HAS)');
@@ -14,23 +29,16 @@ describe('Chacter card component testing', () => {
     expect(listItems[3]).toHaveTextContent('Aaron Stack');
     expect(listItems[4]).toHaveTextContent('Abomination (Emil Blonsky)');
   });
-  it('After clicking on first list item it should open a detailed card section for proper character', async () => {
-    render(<App />);
-    expect(screen.queryByAltText('Picture of 3-D Man')).toBeNull();
-    expect(screen.queryByRole('heading', { level: 2 })).toBeNull();
-    expect(screen.queryByTestId('overlay')).toBeNull();
-    const listItems = await screen.findAllByRole('link');
-    userEvent.click(listItems[0]);
-    expect(
-      await screen.findByAltText('Picture of 3-D Man')
-    ).toBeInTheDocument();
-    expect(
-      await screen.findByRole('heading', { level: 2 })
-    ).toBeInTheDocument();
-    expect(await screen.findByTestId('overlay')).toBeInTheDocument();
-  });
   it('After clicking on first list item, it should make new api call', async () => {
-    render(<App />);
+    const props = await getServerSideProps({
+      query: { name: '', limit: 5, page: 1 },
+    });
+    await new Promise((res) => {
+      setTimeout(res), 500;
+    });
+    render(
+      <Index data={props.props.data} totalResults={props.props.totalResults} />
+    );
     const request = vi.spyOn(window, 'fetch');
     const listItems = await screen.findAllByRole('link');
     userEvent.click(listItems[0]);

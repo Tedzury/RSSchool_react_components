@@ -1,43 +1,23 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi, Mock } from 'vitest';
 import { localStorageMock } from './localStorageMock';
-import { Provider } from 'react-redux';
-import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { SearchBar } from '../../components/indexComponents';
+import { useRouter } from 'next/router';
 
 Object.defineProperty(window, 'localStorage', { value: localStorageMock() });
 
 describe('Testing search bar component', () => {
+  vi.mock('next/router', () => ({
+    useRouter: vi.fn(),
+  }));
+  (useRouter as Mock).mockReturnValue({
+    query: { name: 'tralala' },
+  });
   it('During app initialization it should retrieve search value from localStorage', () => {
-    localStorage.setItem('reactComponentSearchTerm', 'Tralala');
-    type mockAppStateType = {
-      searchValue: string;
-    };
-
-    const initialState: mockAppStateType = {
-      searchValue: localStorage.getItem('reactComponentSearchTerm') || '',
-    };
-
-    const mockAppStateSlice = createSlice({
-      name: 'mockAppState',
-      initialState,
-      reducers: {},
-    });
-
-    const store = configureStore({
-      reducer: {
-        appReducer: mockAppStateSlice.reducer,
-      },
-    });
-
-    render(
-      <Provider store={store}>
-        <SearchBar />;
-      </Provider>
-    );
+    render(<SearchBar />);
     const searchInput = screen.getByPlaceholderText(
       'Type a name!'
     ) as HTMLInputElement;
-    expect(searchInput.value).toEqual('Tralala');
+    expect(searchInput.value).toEqual('tralala');
   });
 });

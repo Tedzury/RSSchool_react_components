@@ -2,7 +2,7 @@ import { md5 } from 'js-md5';
 import MainLayout from '../src/pages/MainLayout';
 import { formatCharListData } from '../src/helpers/formatCharListData';
 
-export default function ({ data, totalResults }) {
+export default function Index({ data, totalResults }) {
   return (
     <MainLayout charListData={data.charListData} totalResults={totalResults}>
       {null}

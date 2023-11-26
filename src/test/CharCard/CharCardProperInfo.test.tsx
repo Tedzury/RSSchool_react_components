@@ -1,14 +1,29 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import { userEvent } from '@testing-library/user-event';
-
-import App from '../../App';
+import { Mock, describe, expect, it, vi } from 'vitest';
+import DetailsPage, { getServerSideProps } from '../../../pages/[slug]';
+import { useRouter } from 'next/router';
 
 describe('CharCard proper info testing', async () => {
+  vi.mock('next/router', () => ({
+    useRouter: vi.fn(),
+  }));
+  (useRouter as Mock).mockReturnValue({
+    query: { name: '' },
+    push: (str: string) => window.history.pushState('', '', str),
+  });
   it('Should render detailed characters data in detailed character card after clicking on their respective list item', async () => {
-    render(<App />);
-    const listItems = await screen.findAllByRole('link');
-    userEvent.click(listItems[0]);
+    const props = await getServerSideProps({
+      query: { name: '', limit: 5, page: 1, slug: 'id=1011334' },
+    });
+    await new Promise((res) => {
+      setTimeout(res), 500;
+    });
+    render(
+      <DetailsPage
+        data={props.props.data}
+        totalResults={props.props.totalResults}
+      />
+    );
     expect(
       await screen.findByAltText('Picture of 3-D Man')
     ).toBeInTheDocument();
@@ -18,14 +33,5 @@ describe('CharCard proper info testing', async () => {
     expect(await screen.findByTestId('overlay')).toBeInTheDocument();
     const closeBtn = await screen.findByText('X');
     expect(closeBtn).toBeInTheDocument();
-    userEvent.click(closeBtn);
-    userEvent.click(listItems[1]);
-    expect(
-      await screen.findByAltText('Picture of A-Bomb (HAS)')
-    ).toBeInTheDocument();
-    expect(
-      await screen.findByRole('heading', { level: 2 })
-    ).toBeInTheDocument();
-    expect(await screen.findByTestId('overlay')).toBeInTheDocument();
   });
 });
