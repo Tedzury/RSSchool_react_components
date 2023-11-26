@@ -1,5 +1,5 @@
 import { md5 } from 'js-md5';
-import MainLayout from '../src/pages/MainLayout';
+import MainLayout from '../src/layouts/MainLayout';
 import { formatCharListData } from '../src/helpers/formatCharListData';
 
 export default function Index({ data, totalResults, error }) {

@@ -1,4 +1,4 @@
-import MainLayout from '../src/pages/MainLayout';
+import MainLayout from '../src/layouts/MainLayout';
 import { formatCharListData } from '../src/helpers/formatCharListData';
 import { md5 } from 'js-md5';
 import { CharCard } from '../src/components/indexComponents';

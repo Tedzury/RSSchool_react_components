@@ -18,9 +18,8 @@ describe('Characters list component testing', () => {
     await new Promise((res) => {
       setTimeout(res), 500;
     });
-    render(
-      <Index data={props.props.data} totalResults={props.props.totalResults} />
-    );
+    const { data, totalResults, error } = props.props;
+    render(<Index data={data} totalResults={totalResults} error={error} />);
     expect(
       await screen.findByText('Sorry, there is no characters yet!')
     ).toBeInTheDocument();

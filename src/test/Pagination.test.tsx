@@ -21,9 +21,8 @@ describe('Testing pagination component', async () => {
     await new Promise((res) => {
       setTimeout(res), 500;
     });
-    render(
-      <Index data={props.props.data} totalResults={props.props.totalResults} />
-    );
+    const { data, totalResults, error } = props.props;
+    render(<Index data={data} totalResults={totalResults} error={error} />);
     const prevBtn = await screen.findByText('<');
     const nextBtn = await screen.findByText('>');
     expect(window.location.search).toMatch('?&page=1&limit=5&name=');

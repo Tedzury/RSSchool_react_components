@@ -18,11 +18,9 @@ describe('CharCard proper info testing', async () => {
     await new Promise((res) => {
       setTimeout(res), 500;
     });
+    const { data, totalResults, error } = props.props;
     render(
-      <DetailsPage
-        data={props.props.data}
-        totalResults={props.props.totalResults}
-      />
+      <DetailsPage data={data} totalResults={totalResults} error={error} />
     );
     expect(
       await screen.findByAltText('Picture of 3-D Man')

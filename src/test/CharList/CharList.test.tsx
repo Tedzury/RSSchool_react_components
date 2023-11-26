@@ -19,9 +19,8 @@ describe('Characters list component testing', () => {
     await new Promise((res) => {
       setTimeout(res), 500;
     });
-    render(
-      <Index data={props.props.data} totalResults={props.props.totalResults} />
-    );
+    const { data, totalResults, error } = props.props;
+    render(<Index data={data} totalResults={totalResults} error={error} />);
     const listItems = await screen.findAllByRole('listitem');
     expect(listItems).toHaveLength(5);
   });
@@ -32,9 +31,8 @@ describe('Characters list component testing', () => {
     await new Promise((res) => {
       setTimeout(res), 500;
     });
-    render(
-      <Index data={props.props.data} totalResults={props.props.totalResults} />
-    );
+    const { data, totalResults, error } = props.props;
+    render(<Index data={data} totalResults={totalResults} error={error} />);
     const listItems = await screen.findAllByRole('listitem');
     expect(listItems).toHaveLength(10);
   });

@@ -19,9 +19,8 @@ describe('Chacter card component testing', () => {
     await new Promise((res) => {
       setTimeout(res), 500;
     });
-    render(
-      <Index data={props.props.data} totalResults={props.props.totalResults} />
-    );
+    const { data, totalResults, error } = props.props;
+    render(<Index data={data} totalResults={totalResults} error={error} />);
     const listItems = await screen.findAllByRole('heading', { level: 3 });
     expect(listItems[0]).toHaveTextContent('3-D Man');
     expect(listItems[1]).toHaveTextContent('A-Bomb (HAS)');
@@ -36,9 +35,8 @@ describe('Chacter card component testing', () => {
     await new Promise((res) => {
       setTimeout(res), 500;
     });
-    render(
-      <Index data={props.props.data} totalResults={props.props.totalResults} />
-    );
+    const { data, totalResults, error } = props.props;
+    render(<Index data={data} totalResults={totalResults} error={error} />);
     const request = vi.spyOn(window, 'fetch');
     const listItems = await screen.findAllByRole('link');
     userEvent.click(listItems[0]);
