@@ -3,6 +3,7 @@ import { formatCharListData } from '../src/helpers/formatCharListData';
 import { md5 } from 'js-md5';
 import { CharCard } from '../src/components/indexComponents';
 import { formatCharData } from '../src/helpers/formatCharData';
+import getCharId from '../src/helpers/getCharId';
 
 export default function ({ data, totalResults }) {
   return (
@@ -35,7 +36,8 @@ export const getServerSideProps = async (context) => {
   const charTs = Number(new Date());
   const charHash = md5.create();
   charHash.update(charTs + privateKey + apiKey);
-  const charUrl = `${baseUrl}/${slug}?apikey=${apiKey}&ts=${charTs}&hash=${charHash}`;
+  const actualId = getCharId(slug);
+  const charUrl = `${baseUrl}/${actualId}?apikey=${apiKey}&ts=${charTs}&hash=${charHash}`;
   const charResponse = await fetch(charUrl);
   const charResult = await charResponse.json();
   const charData = formatCharData(charResult?.data?.results[0]);

@@ -1,4 +1,4 @@
-const idRegEx = /id=(\d*)/i;
+const idRegEx = /id=(\d{7})/i;
 
 export default function getCharId(identidier: string | undefined) {
   if (identidier) {

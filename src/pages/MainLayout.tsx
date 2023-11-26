@@ -5,8 +5,17 @@ import {
   LimitSelector,
   SearchBar,
 } from '../components/indexComponents';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export default function MainLayout({ charListData, totalResults, children }) {
+  const router = useRouter();
+  useEffect(() => {
+    if (Object.entries(router.query).length < 3) {
+      const search = localStorage.getItem('reactComponentSearchTerm') || '';
+      router.push(`?&page=1&limit=5&name=${search}`);
+    }
+  }, [router]);
   return (
     <div className="relative mx-auto flex min-h-fit max-w-[1025px]">
       <div className="w-1/2 grow">
