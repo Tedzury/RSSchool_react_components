@@ -5,6 +5,7 @@ import LimitSelector from './LimitSelector/LimitSelector';
 import Pagination from './Pagination/Pagination';
 import SearchBar from './SearchBar/SearchBar';
 import CharCard from './CharCard/CharCard';
+import ErrorFallback from './ErrorFallback/ErrorFallback';
 
 export {
   CharList,
@@ -14,4 +15,5 @@ export {
   Pagination,
   SearchBar,
   CharCard,
+  ErrorFallback,
 };
