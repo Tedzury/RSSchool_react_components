@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import MainPage from './pages/MainPage';
+import MainPage from './pages/MainPage/MainPage';
 import NativeForm from './pages/NativeForm';
 import ReactHookForm from './pages/ReactHookForm';
 import { Provider } from 'react-redux';
