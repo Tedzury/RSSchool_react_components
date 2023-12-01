@@ -17,15 +17,13 @@ export type FormDataType = {
 };
 
 export type RawFormDataType = {
+  image?: FileList | undefined;
+  password?: string | undefined;
   name: string;
-  age: number;
   email: string;
-  password: string;
-  confirmPassword: string;
+  age: number;
   gender: string;
-  accept: boolean;
-  image: FileList;
+  accept: NonNullable<boolean | undefined>;
   country: string;
+  confirmPassword: string;
 };
-
-
