@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit/dist/createAction';
 import { FormDataType, AppStateType } from '../shared/types';
+import { countryList } from '../shared/constants';
 
 const initialState: AppStateType = {
+  countryList,
   lastShown: 0,
   formsData: [] as FormDataType[],
 };

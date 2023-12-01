@@ -12,6 +12,7 @@ export default function FormList() {
     <section className="px-10">
       <h3 className="mt-10 text-xl text-accent">Here is your filled forms:</h3>
       <div className="mt-10 flex flex-col items-center">{content}</div>
+      <button onClick={() => console.log(formsData)}>Show data</button>
     </section>
   );
 }
