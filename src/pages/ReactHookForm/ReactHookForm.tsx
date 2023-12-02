@@ -1,14 +1,24 @@
 import BackBtn from '../../shared/ui/BackBtn';
 import FormHeader from '../../shared/ui/FormHeader';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { useAppDispatch } from '../../store/hooks';
 import { useEffect, useState } from 'react';
 import { addFormData } from '../../store/appStateSlice';
 import { RawFormDataType } from '../../shared/types';
-import { validationSchema } from '../../shared/validationSchema';
+import {
+  defaultValidationSchema,
+  rhfSchemaExtension,
+} from '../../shared/validationSchema';
 import getTextColor from '../../helpers/getTextColor';
 import { encodeToBase64 } from '../../helpers/encodeToBase64';
+import CountryList from './ui/CountryList';
+import * as Yup from 'yup';
+
+const validationSchema = Yup.object({
+  ...defaultValidationSchema(),
+  ...rhfSchemaExtension(),
+});
 
 export default function ReactHookForm() {
   const dispatch = useAppDispatch();
@@ -19,14 +29,10 @@ export default function ReactHookForm() {
     reset,
   } = useForm({
     resolver: yupResolver(validationSchema),
+    mode: 'onBlur',
   });
 
-  const { countryList } = useAppSelector((state) => state.appReducer);
-  const list = countryList.map((country) => (
-    <option key={country} value={country}></option>
-  ));
-
-  const onSubmit: SubmitHandler<RawFormDataType> = async ({
+  async function onSubmit({
     name,
     age,
     email,
@@ -36,8 +42,9 @@ export default function ReactHookForm() {
     accept,
     image,
     country,
-  }) => {
-    const image64 = await encodeToBase64(image);
+  }: RawFormDataType) {
+    const myImage = image && image[0];
+    const image64 = await encodeToBase64(myImage);
     dispatch(
       addFormData({
         name,
@@ -52,7 +59,7 @@ export default function ReactHookForm() {
       })
     );
     reset();
-  };
+  }
 
   const [textColor, setTextColor] = useState('text-[black]');
   useEffect(() => {
@@ -88,7 +95,7 @@ export default function ReactHookForm() {
         <input {...register('accept')} type="checkbox" />
         <p>{errors.accept?.message as string}</p>
 
-        <input {...register('image')} type="file" />
+        <input {...register('image')} type="file" multiple={false} />
         <p>{errors.image?.message as string}</p>
 
         <input
@@ -115,7 +122,7 @@ export default function ReactHookForm() {
         />
         <p>{errors.confirmPassword?.message as string}</p>
 
-        <datalist id="countryList">{list}</datalist>
+        <CountryList />
 
         <button>submit</button>
       </form>

@@ -1,8 +1,8 @@
-export function encodeToBase64(fileList: FileList | undefined) {
+export function encodeToBase64(file: File | undefined) {
   return new Promise((resolve, reject) => {
-    if (!fileList) return;
+    if (!file) return;
     const reader = new FileReader();
-    reader.readAsDataURL(fileList[0]);
+    reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
     reader.onerror = reject;
   });

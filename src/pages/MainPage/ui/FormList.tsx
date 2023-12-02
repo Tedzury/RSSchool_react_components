@@ -2,17 +2,42 @@ import { useAppSelector } from '../../../store/hooks';
 
 export default function FormList() {
   const { formsData } = useAppSelector((state) => state.appReducer);
+  const formsList = formsData.map(
+    ({ name, age, gender, email, password, country, image }) => {
+      return (
+        <li
+          className="w-full rounded-lg border-2 border-accent_yellow py-6 text-lg text-accent"
+          key={Date.toString()}
+        >
+          <p className="ml-[6rem]">Name: {name}</p>
+          <p className="ml-[6rem]">Age: {age}</p>
+          <p className="ml-[6rem]">Gender: {gender}</p>
+          <p className="ml-[6rem]">Email: {email}</p>
+          <p className="ml-[6rem]">Password: {password}</p>
+          <p className="ml-[6rem]">Country: {country}</p>
+          <p className="mt-5 w-full text-center text-xl">Provided image:</p>
+          <img
+            className="mx-auto mt-5 w-1/2 rounded-md"
+            src={image}
+            alt={`${name}`}
+          />
+        </li>
+      );
+    }
+  );
+
   const content =
     formsData.length > 0 ? (
-      <div>Here is form data</div>
+      <ul className="flex flex-col gap-20">{formsList}</ul>
     ) : (
-      <div className="text-lg text-accent">No forms filled yet...</div>
+      <p className="text-lg text-accent">No forms completed yet...</p>
     );
   return (
-    <section className="px-10">
-      <h3 className="mt-10 text-xl text-accent">Here is your filled forms:</h3>
-      <div className="mt-10 flex flex-col items-center">{content}</div>
-      <button onClick={() => console.log(formsData)}>Show data</button>
+    <section className="w-full px-10">
+      <h3 className="mt-10 text-xl text-accent">
+        Here are your completed forms:
+      </h3>
+      <div className="mt-10 flex w-full flex-col items-center">{content}</div>
     </section>
   );
 }

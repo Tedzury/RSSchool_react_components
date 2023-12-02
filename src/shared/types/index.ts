@@ -27,3 +27,14 @@ export type RawFormDataType = {
   country: string;
   confirmPassword: string;
 };
+
+export type RawNativeFormDataType = {
+  password?: string | undefined;
+  name: string;
+  email: string;
+  age: number;
+  gender: string;
+  accept: string | undefined;
+  country: string;
+  confirmPassword: string;
+};
