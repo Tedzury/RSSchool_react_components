@@ -26,6 +26,7 @@ export default function ReactHookForm() {
   const navigate = useNavigate();
   const [fileBtnText, setFileBtnText] = useState('upload');
   const [textColor, setTextColor] = useState('text-[black]');
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const fileLabel = useRef(null);
 
   function handleBtnTextChange(target: HTMLInputElement) {
@@ -42,7 +43,7 @@ export default function ReactHookForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, touchedFields },
     reset,
   } = useForm({
     resolver: yupResolver(validationSchema),
@@ -78,9 +79,20 @@ export default function ReactHookForm() {
     reset();
     navigate('/');
   }
+
+  const errorsArr = Object.values(errors);
+  const touchedArr = Object.values(touchedFields);
+
   useEffect(() => {
     setTextColor(getTextColor(errors.password?.message?.slice(0, 1) as string));
-  }, [errors.password?.message]);
+    const allTouched = Array.from(Object.keys(touchedFields)).length === 9;
+    const allValid = Array.from(Object.keys(errors)).length === 0;
+    if (allTouched && allValid) {
+      setIsSubmitDisabled(false);
+    } else {
+      setIsSubmitDisabled(true);
+    }
+  }, [errorsArr, touchedArr, errors, touchedFields]);
 
   return (
     <>
@@ -254,7 +266,10 @@ export default function ReactHookForm() {
         </div>
 
         <div className="mt-10 w-full">
-          <button className="mx-auto block w-[300px] rounded-md border-b-2 border-t-2 border-accent_beige bg-[#171717] p-2 font-bold text-accent_beige transition-all duration-200 hover:bg-main_bg hover:text-accent_yellow">
+          <button
+            disabled={isSubmitDisabled}
+            className="mx-auto block w-[300px] rounded-md border-b-2 border-t-2 border-accent_beige bg-[#171717] p-2 font-bold text-accent_beige transition-all duration-200 hover:bg-main_bg hover:text-accent_yellow disabled:border-accent_beige/40 disabled:bg-[#171717]/40 disabled:text-accent_beige/40"
+          >
             submit
           </button>
         </div>
