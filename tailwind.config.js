@@ -8,6 +8,7 @@ module.exports = {
         main_bg: '#2d2c2c',
         accent: '#ebe8e8',
         accent_yellow: '#e8e808',
+        accent_beige: '#e6e4d4',
       },
     },
   },

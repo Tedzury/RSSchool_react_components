@@ -11,6 +11,7 @@ import getTextColor from '../../helpers/getTextColor';
 import { useAppDispatch } from '../../store/hooks';
 import { addFormData } from '../../store/appStateSlice';
 import { encodeToBase64 } from '../../helpers/encodeToBase64';
+import { useNavigate } from 'react-router-dom';
 
 const validationSchema = Yup.object({
   ...defaultValidationSchema(),
@@ -43,8 +44,10 @@ export default function NativeForm() {
   const [errors, setErrors] = useState(defaultErrorState);
   const [textColor, setTextColor] = useState('text-[black]');
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
-    setTextColor(getTextColor(errors.password.slice(1)));
+    setTextColor(getTextColor(errors.password.slice(0, 1)));
+    console.log(errors.password);
   }, [errors.password]);
 
   async function handleSubmit(e: FormEvent) {
@@ -68,6 +71,7 @@ export default function NativeForm() {
           image: image64 as string,
         })
       );
+      navigate('/');
     } catch (e) {
       (e as YupErrors).inner.forEach((error) => {
         setErrors((prev) => {

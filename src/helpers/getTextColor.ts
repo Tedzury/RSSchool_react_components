@@ -4,9 +4,7 @@ export default function getTextColor(errorNumb: string) {
       return 'text-[red]';
     case '2':
       return 'text-[orange]';
-    case '1':
-      return 'text-[yellow]';
     default:
-      return 'text-[black]';
+      return 'text-accent_yellow';
   }
 }

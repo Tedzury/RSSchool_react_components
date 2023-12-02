@@ -1,4 +1,5 @@
 import { useAppSelector } from '../../../store/hooks';
+import { nanoid } from 'nanoid';
 
 export default function FormList() {
   const { formsData } = useAppSelector((state) => state.appReducer);
@@ -7,7 +8,7 @@ export default function FormList() {
       return (
         <li
           className="w-full rounded-lg border-2 border-accent_yellow py-6 text-lg text-accent"
-          key={Date.toString()}
+          key={nanoid()}
         >
           <p className="ml-[6rem]">Name: {name}</p>
           <p className="ml-[6rem]">Age: {age}</p>
