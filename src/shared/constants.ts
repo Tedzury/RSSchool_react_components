@@ -7,3 +7,15 @@ export const countryList = [
   'Canada',
   'Poland',
 ];
+
+export const defaultErrorState = {
+  name: '',
+  age: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  gender: '',
+  accept: '',
+  image: '',
+  country: '',
+};

@@ -41,3 +41,13 @@ export type RawNativeFormDataType = {
 };
 
 export type FormRegister = UseFormRegister<RawFormDataType>;
+
+export type ValidationError = {
+  message: string;
+  path: string;
+  type: string;
+};
+
+export type YupErrors = {
+  inner: ValidationError[];
+};

@@ -12,33 +12,17 @@ import { useAppDispatch } from '../../store/hooks';
 import { addFormData } from '../../store/appStateSlice';
 import { encodeToBase64 } from '../../helpers/encodeToBase64';
 import { useNavigate } from 'react-router-dom';
+import TextInputWrap from '../ReactHookForm/ui/TextInputWrap';
+import GenderInputWrap from '../ReactHookForm/ui/GenderInputWrap';
+import TermsAndCondWrap from '../ReactHookForm/ui/TermsAndCondWrap';
+import FileInputWrap from '../ReactHookForm/ui/FileInputWrap';
+import { defaultErrorState } from '../../shared/constants';
+import { YupErrors } from '../../shared/types';
 
 const validationSchema = Yup.object({
   ...defaultValidationSchema(),
   ...nativeSchemaExtension(),
 });
-
-type ValidationError = {
-  message: string;
-  path: string;
-  type: string;
-};
-
-type YupErrors = {
-  inner: ValidationError[];
-};
-
-const defaultErrorState = {
-  name: '',
-  age: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-  gender: '',
-  accept: '',
-  image: '',
-  country: '',
-};
 
 export default function NativeForm() {
   const [errors, setErrors] = useState(defaultErrorState);
@@ -97,51 +81,34 @@ export default function NativeForm() {
       <FormHeader title="Native form" />
       <form onSubmit={(e) => handleSubmit(e)} noValidate>
         <div className="mt-10 flex flex-col gap-5 px-10 text-accent_beige">
-          <div className="items-centers relative flex p-5">
-            <label htmlFor="nameInput" className="w-[200px] font-bold">
-              Name:
-            </label>
+          <TextInputWrap errorMsg={errors.name} label="Name:" idFor="nameInput">
             <input
-              className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
+              className="text_input"
               type="text"
-              name="name"
               id="nameInput"
+              name="name"
             />
-            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
-              {errors.name}
-            </p>
-          </div>
-
-          <div className="items-centers relative flex p-5">
-            <label htmlFor="ageInput" className="w-[200px] font-bold">
-              Age:
-            </label>
+          </TextInputWrap>
+          <TextInputWrap errorMsg={errors.age} label="Age:" idFor="ageInput">
             <input
-              className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
-              type="number"
               name="age"
+              className="text_input"
+              type="number"
               id="ageInput"
             />
-            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
-              {errors.age}
-            </p>
-          </div>
-
-          <div className="items-centers relative flex p-5">
-            <label htmlFor="emailInput" className="w-[200px] font-bold">
-              Email:
-            </label>
+          </TextInputWrap>
+          <TextInputWrap
+            errorMsg={errors.email}
+            label="Email:"
+            idFor="emailInput"
+          >
             <input
-              className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
-              type="email"
               name="email"
+              className="text_input"
+              type="email"
               id="emailInput"
             />
-            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
-              {errors.email}
-            </p>
-          </div>
-
+          </TextInputWrap>
           <div className="items-centers relative flex p-5">
             <label htmlFor="passwordInput" className="w-[200px] font-bold">
               Password:
@@ -156,116 +123,69 @@ export default function NativeForm() {
               {errors.password.slice(1)}
             </p>
           </div>
-
-          <div className="items-centers relative flex p-5">
-            <label htmlFor="confPassInput" className="w-[200px] font-bold">
-              Confirm password:
-            </label>
+          <TextInputWrap
+            errorMsg={errors.confirmPassword}
+            label="Confirm password:"
+            idFor="confPassInput"
+          >
             <input
-              className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
-              type="password"
               name="confirmPassword"
+              className="text_input"
+              type="password"
               id="confPassInput"
             />
-            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
-              {errors.confirmPassword}
-            </p>
-          </div>
-
-          <div className="items-centers relative flex p-5">
-            <p className="w-[200px] font-bold">Gender:</p>
-            <div className="flex flex-grow py-1">
-              <label
-                htmlFor="genderMale"
-                className="flex w-1/2 items-center justify-center gap-5"
-              >
-                Male:
-                <input
-                  type="radio"
-                  name="gender"
-                  value="male"
-                  id="genderMale"
-                />
-              </label>
-              <label
-                htmlFor="genderFemale"
-                className="flex w-1/2 items-center justify-center gap-5"
-              >
-                Female:
-                <input
-                  type="radio"
-                  name="gender"
-                  value="female"
-                  id="genderFemale"
-                />
-              </label>
-            </div>
-            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
-              {errors.gender}
-            </p>
-          </div>
-
-          <div className="relative p-5">
-            <label htmlFor="acceptInput" className="w-[full] font-bold">
-              Accept T&C:
+          </TextInputWrap>
+          <GenderInputWrap errorMsg={errors.gender}>
+            <input name="gender" type="radio" value="male" id="genderMale" />
+            <input
+              name="gender"
+              type="radio"
+              value="female"
+              id="genderFemale"
+            />
+          </GenderInputWrap>
+          <TermsAndCondWrap errorMsg={errors.accept}>
+            <input
+              name="accept"
+              className="ml-[50%] h-[17px] w-[17px] border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
+              type="checkbox"
+              id="acceptInput"
+            />
+          </TermsAndCondWrap>
+          <FileInputWrap errorMsg={errors.image}>
+            <label
+              htmlFor="imageInput"
+              className="file_input_label"
+              ref={fileLabel}
+            >
+              {fileBtnText}
               <input
-                className="ml-[50%] h-[17px] w-[17px] border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
-                type="checkbox"
-                name="accept"
-                id="acceptInput"
+                name="image"
+                className="w-0 appearance-none"
+                type="file"
+                id="imageInput"
+                onChange={(e) => handleBtnTextChange(e.target)}
               />
             </label>
-            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
-              {errors.accept}
-            </p>
-          </div>
-
-          <div className="items-centers relative flex p-5">
-            <p className="w-[200px] font-bold">Choose image:</p>
-            <div className="flex w-full justify-center">
-              <label
-                htmlFor="imageInput"
-                className="w-[200px] cursor-pointer rounded-md border-b-2 border-t-2 border-accent_beige bg-[#171717] text-center transition-all duration-200 hover:bg-main_bg hover:text-accent_yellow"
-                ref={fileLabel}
-              >
-                {fileBtnText}
-                <input
-                  className="w-0 appearance-none"
-                  type="file"
-                  name="image"
-                  id="imageInput"
-                  onChange={(e) => handleBtnTextChange(e.target)}
-                />
-              </label>
-            </div>
-            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
-              {errors.image}
-            </p>
-          </div>
-
-          <div className="items-centers relative flex p-5">
-            <label htmlFor="countryInput" className="w-[200px] font-bold">
-              Country:
-            </label>
+          </FileInputWrap>
+          <TextInputWrap
+            errorMsg={errors.country}
+            label="Country:"
+            idFor="countryInput"
+          >
             <input
-              className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
-              type="text"
               name="country"
+              className="text_input"
+              type="text"
               id="countryInput"
               list="countryList"
             />
-            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
-              {errors.country}
-            </p>
-          </div>
-
+          </TextInputWrap>
           <CountryList />
         </div>
 
         <div className="mt-10 w-full">
-          <button className="mx-auto block w-[300px] rounded-md border-b-2 border-t-2 border-accent_beige bg-[#171717] p-2 font-bold text-accent_beige transition-all duration-200 hover:bg-main_bg hover:text-accent_yellow disabled:border-accent_beige/40 disabled:bg-[#171717]/40 disabled:text-accent_beige/40">
-            submit
-          </button>
+          <button className="submit_btn">submit</button>
         </div>
       </form>
     </>
