@@ -7,18 +7,14 @@ const MAX_FILE_SIZE = 512000;
 
 export const defaultValidationSchema = () => {
   return {
-    name: Yup.string()
-      .required('Name is required!')
-      .matches(nameRegEx, {
-        message: 'Name must start with uppercase letter!',
-        excludeEmptyString: true,
-      }),
-    email: Yup.string()
-      .required('Email is required!')
-      .matches(emailRegEx, {
-        message: 'Email must be email@example.com',
-        excludeEmptyString: true,
-      }),
+    name: Yup.string().required('Name is required!').matches(nameRegEx, {
+      message: 'Name must start with uppercase letter!',
+      excludeEmptyString: true,
+    }),
+    email: Yup.string().required('Email is required!').matches(emailRegEx, {
+      message: 'Email must be email@example.com',
+      excludeEmptyString: true,
+    }),
     age: Yup.number()
       .transform((value) => (Number.isNaN(value) ? 0 : value))
       .required('Age is required!')
@@ -80,37 +76,37 @@ export const defaultValidationSchema = () => {
     confirmPassword: Yup.string()
       .required('Confirm password is required')
       .oneOf([Yup.ref('password')], 'Password mismatch'),
-  }
+  };
 };
 
 export const rhfSchemaExtension = () => {
   return {
     accept: Yup.boolean()
-    .oneOf([true], 'Acceptance of T&C required!')
-    .required('Acceptance of T&C required!'),
+      .oneOf([true], 'Acceptance of T&C required!')
+      .required('Acceptance of T&C required!'),
     image: Yup.mixed<FileList>()
-    .test('File presence', 'Image is required', (value) =>
-      (value as FileList)[0] ? true : false
-    )
-    .test(
-      'Max file size',
-      'Image must be less then 500KB',
-      (value) => value && (value as FileList)[0]?.size < MAX_FILE_SIZE
-    )
-    .test(
-      'Image extension',
-      'Only images jpeg and png images are allowed',
-      (value) => {
-        if (value) {
-          const extension = (value as FileList)[0]?.name.slice(
-            (value as FileList)[0].name.lastIndexOf('.')
-          );
-          return ['.jpeg', '.jpg', '.png'].includes(extension);
+      .test('File presence', 'Image is required', (value) =>
+        (value as FileList)[0] ? true : false
+      )
+      .test(
+        'Max file size',
+        'Image must be less then 500KB',
+        (value) => value && (value as FileList)[0]?.size < MAX_FILE_SIZE
+      )
+      .test(
+        'Image extension',
+        'Only images jpeg and png images are allowed',
+        (value) => {
+          if (value) {
+            const extension = (value as FileList)[0]?.name.slice(
+              (value as FileList)[0].name.lastIndexOf('.')
+            );
+            return ['.jpeg', '.jpg', '.png'].includes(extension);
+          }
+          return false;
         }
-        return false;
-      }
-    ),
-  }
+      ),
+  };
 };
 
 export const nativeSchemaExtension = () => {
@@ -132,13 +128,11 @@ export const nativeSchemaExtension = () => {
         'Only images jpeg and png images are allowed',
         (value) => {
           if (value) {
-            const extension = value?.name.slice(
-              value.name.lastIndexOf('.')
-            );
+            const extension = value?.name.slice(value.name.lastIndexOf('.'));
             return ['.jpeg', '.jpg', '.png'].includes(extension);
           }
           return false;
         }
       ),
-  }
-}
+  };
+};

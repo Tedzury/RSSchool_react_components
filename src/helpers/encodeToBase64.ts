@@ -6,4 +6,4 @@ export function encodeToBase64(file: File | undefined) {
     reader.onload = () => resolve(reader.result);
     reader.onerror = reject;
   });
-} 
+}

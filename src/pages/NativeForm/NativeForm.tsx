@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import BackBtn from '../../shared/ui/BackBtn';
 import FormHeader from '../../shared/ui/FormHeader';
-import CountryList from '../ReactHookForm/ui/CountryList';
+import CountryList from '../../shared/ui/CountryList';
 import * as Yup from 'yup';
 import {
   defaultValidationSchema,

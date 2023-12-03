@@ -1,3 +1,5 @@
+import { UseFormRegister } from 'react-hook-form';
+
 export type AppStateType = {
   countryList: string[];
   formsData: FormDataType[];
@@ -16,13 +18,13 @@ export type FormDataType = {
 };
 
 export type RawFormDataType = {
-  image?: FileList | undefined;
   password?: string | undefined;
+  image?: FileList | undefined;
+  accept: NonNullable<boolean | undefined>;
   name: string;
   email: string;
   age: number;
-  gender: string;
-  accept: NonNullable<boolean | undefined>;
+  gender: 'male' | 'female';
   country: string;
   confirmPassword: string;
 };
@@ -37,3 +39,5 @@ export type RawNativeFormDataType = {
   country: string;
   confirmPassword: string;
 };
+
+export type FormRegister = UseFormRegister<RawFormDataType>;

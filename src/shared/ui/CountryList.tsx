@@ -1,4 +1,4 @@
-import { useAppSelector } from '../../../store/hooks';
+import { useAppSelector } from '../../store/hooks';
 
 export default function CountryList() {
   const { countryList } = useAppSelector((state) => state.appReducer);

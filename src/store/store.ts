@@ -3,7 +3,7 @@ import appReducer from './appStateSlice';
 
 export const store = configureStore({
   reducer: { appReducer },
-  middleware: getDefaultMiddleware =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
     }),

@@ -12,9 +12,13 @@ import {
 } from '../../shared/validationSchema';
 import getTextColor from '../../helpers/getTextColor';
 import { encodeToBase64 } from '../../helpers/encodeToBase64';
-import CountryList from './ui/CountryList';
+import CountryList from '../../shared/ui/CountryList';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
+import TextInputWrap from './ui/TextInputWrap';
+import GenderInputWrap from './ui/GenderInputWrap';
+import TermsAndCondWrap from './ui/TermsAndCondWrap';
+import FileInputWrap from './ui/FileInputWrap';
 
 const validationSchema = Yup.object({
   ...defaultValidationSchema(),
@@ -100,51 +104,42 @@ export default function ReactHookForm() {
       <FormHeader title="React hook form" />
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className="mt-10 flex flex-col gap-5 px-10 text-accent_beige">
-          <div className="items-centers relative flex p-5">
-            <label htmlFor="nameInput" className="w-[200px] font-bold">
-              Name:
-            </label>
+          <TextInputWrap
+            errorMsg={errors.name?.message as string}
+            label="Name:"
+            idFor="nameInput"
+          >
             <input
               {...register('name')}
-              className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
+              className="text_input"
               type="text"
               id="nameInput"
             />
-            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
-              {errors.name?.message as string}
-            </p>
-          </div>
-
-          <div className="items-centers relative flex p-5">
-            <label htmlFor="ageInput" className="w-[200px] font-bold">
-              Age:
-            </label>
+          </TextInputWrap>
+          <TextInputWrap
+            errorMsg={errors.age?.message as string}
+            label="Age:"
+            idFor="ageInput"
+          >
             <input
               {...register('age')}
-              className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
+              className="text_input"
               type="number"
               id="ageInput"
             />
-            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
-              {errors.age?.message as string}
-            </p>
-          </div>
-
-          <div className="items-centers relative flex p-5">
-            <label htmlFor="emailInput" className="w-[200px] font-bold">
-              Email:
-            </label>
+          </TextInputWrap>
+          <TextInputWrap
+            errorMsg={errors.email?.message as string}
+            label="Email:"
+            idFor="emailInput"
+          >
             <input
               {...register('email')}
-              className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
+              className="text_input"
               type="email"
               id="emailInput"
             />
-            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
-              {errors.email?.message as string}
-            </p>
-          </div>
-
+          </TextInputWrap>
           <div className="items-centers relative flex p-5">
             <label htmlFor="passwordInput" className="w-[200px] font-bold">
               Password:
@@ -159,117 +154,74 @@ export default function ReactHookForm() {
               {errors.password?.message?.slice(1) as string}
             </p>
           </div>
-
-          <div className="items-centers relative flex p-5">
-            <label htmlFor="confPassInput" className="w-[200px] font-bold">
-              Confirm password:
-            </label>
+          <TextInputWrap
+            errorMsg={errors.confirmPassword?.message as string}
+            label="Confirm password:"
+            idFor="confPassInput"
+          >
             <input
               {...register('confirmPassword')}
-              className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
+              className="text_input"
               type="password"
               id="confPassInput"
             />
-            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
-              {errors.confirmPassword?.message as string}
-            </p>
-          </div>
-
-          <div className="items-centers relative flex p-5">
-            <p className="w-[200px] font-bold">Gender:</p>
-            <div className="flex flex-grow py-1">
-              <label
-                htmlFor="genderMale"
-                className="flex w-1/2 items-center justify-center gap-5"
-              >
-                Male:
-                <input
-                  {...register('gender')}
-                  type="radio"
-                  value="male"
-                  id="genderMale"
-                />
-              </label>
-              <label
-                htmlFor="genderFemale"
-                className="flex w-1/2 items-center justify-center gap-5"
-              >
-                Female:
-                <input
-                  {...register('gender')}
-                  type="radio"
-                  value="female"
-                  id="genderFemale"
-                />
-              </label>
-            </div>
-            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
-              {errors.gender?.message as string}
-            </p>
-          </div>
-
-          <div className="relative p-5">
-            <label htmlFor="acceptInput" className="w-[full] font-bold">
-              Accept T&C:
+          </TextInputWrap>
+          <GenderInputWrap errorMsg={errors.gender?.message as string}>
+            <input
+              {...register('gender')}
+              type="radio"
+              value="male"
+              id="genderMale"
+            />
+            <input
+              {...register('gender')}
+              type="radio"
+              value="female"
+              id="genderFemale"
+            />
+          </GenderInputWrap>
+          <TermsAndCondWrap errorMsg={errors.accept?.message as string}>
+            <input
+              {...register('accept')}
+              className="ml-[50%] h-[17px] w-[17px] border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
+              type="checkbox"
+              id="acceptInput"
+            />
+          </TermsAndCondWrap>
+          <FileInputWrap errorMsg={errors.image?.message as string}>
+            <label
+              htmlFor="imageInput"
+              className="file_input_label"
+              ref={fileLabel}
+            >
+              {fileBtnText}
               <input
-                {...register('accept')}
-                className="ml-[50%] h-[17px] w-[17px] border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
-                type="checkbox"
-                id="acceptInput"
+                {...register('image')}
+                className="w-0 appearance-none"
+                type="file"
+                id="imageInput"
+                onChange={(e) => handleBtnTextChange(e.target)}
               />
             </label>
-            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
-              {errors.accept?.message as string}
-            </p>
-          </div>
-
-          <div className="items-centers relative flex p-5">
-            <p className="w-[200px] font-bold">Choose image:</p>
-            <div className="flex w-full justify-center">
-              <label
-                htmlFor="imageInput"
-                className="w-[200px] cursor-pointer rounded-md border-b-2 border-t-2 border-accent_beige bg-[#171717] text-center transition-all duration-200 hover:bg-main_bg hover:text-accent_yellow"
-                ref={fileLabel}
-              >
-                {fileBtnText}
-                <input
-                  {...register('image')}
-                  className="w-0 appearance-none"
-                  type="file"
-                  id="imageInput"
-                  onChange={(e) => handleBtnTextChange(e.target)}
-                />
-              </label>
-            </div>
-            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
-              {errors.image?.message as string}
-            </p>
-          </div>
-
-          <div className="items-centers relative flex p-5">
-            <label htmlFor="countryInput" className="w-[200px] font-bold">
-              Country:
-            </label>
+          </FileInputWrap>
+          <TextInputWrap
+            errorMsg={errors.country?.message as string}
+            label="Country:"
+            idFor="countryInput"
+          >
             <input
               {...register('country')}
-              className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
+              className="text_input"
               type="text"
               id="countryInput"
               list="countryList"
             />
-            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
-              {errors.country?.message as string}
-            </p>
-          </div>
-
+          </TextInputWrap>
           <CountryList />
         </div>
 
         <div className="mt-10 w-full">
-          <button
-            disabled={isSubmitDisabled}
-            className="mx-auto block w-[300px] rounded-md border-b-2 border-t-2 border-accent_beige bg-[#171717] p-2 font-bold text-accent_beige transition-all duration-200 hover:bg-main_bg hover:text-accent_yellow disabled:border-accent_beige/40 disabled:bg-[#171717]/40 disabled:text-accent_beige/40"
-          >
+          <button disabled={isSubmitDisabled} className="submit_btn">
             submit
           </button>
         </div>

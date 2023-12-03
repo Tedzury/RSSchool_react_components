@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande','Lucida Sans', Arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
   background-color: #2d2c2c;
 }
 
@@ -28,18 +29,30 @@ body {
     rgba(255, 255, 255, 0.5) 75%,
     transparent 75%,
     transparent
-    );
-    background-size: 300% 300%;
-    animation: diagonalStripe 1s linear 1 forwards;
-  }
+  );
+  background-size: 300% 300%;
+  animation: diagonalStripe 1s linear 1 forwards;
+}
 
-  @keyframes diagonalStripe {
-    0% {
-      background-position: -100% 0;
-      opacity: 1;
-    }
-    100% {
-      background-position: 100% 0;
-      opacity: 0;
-    }
+@keyframes diagonalStripe {
+  0% {
+    background-position: -100% 0;
+    opacity: 1;
   }
+  100% {
+    background-position: 100% 0;
+    opacity: 0;
+  }
+}
+
+@layer base {
+  .text_input {
+    @apply w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none;
+  }
+  .file_input_label {
+    @apply w-[200px] cursor-pointer rounded-md border-b-2 border-t-2 border-accent_beige bg-[#171717] text-center transition-all duration-200 hover:bg-main_bg hover:text-accent_yellow;
+  }
+  .submit_btn {
+    @apply mx-auto block w-[300px] rounded-md border-b-2 border-t-2 border-accent_beige bg-[#171717] p-2 font-bold text-accent_beige transition-all duration-200 hover:bg-main_bg hover:text-accent_yellow disabled:border-accent_beige/40 disabled:bg-[#171717]/40 disabled:text-accent_beige/40;
+  }
+}
