@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import BackBtn from '../../shared/ui/BackBtn';
 import FormHeader from '../../shared/ui/FormHeader';
 import CountryList from '../ReactHookForm/ui/CountryList';
@@ -43,11 +43,12 @@ const defaultErrorState = {
 export default function NativeForm() {
   const [errors, setErrors] = useState(defaultErrorState);
   const [textColor, setTextColor] = useState('text-[black]');
+  const [fileBtnText, setFileBtnText] = useState('upload');
+  const fileLabel = useRef(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   useEffect(() => {
     setTextColor(getTextColor(errors.password.slice(0, 1)));
-    console.log(errors.password);
   }, [errors.password]);
 
   async function handleSubmit(e: FormEvent) {
@@ -80,55 +81,192 @@ export default function NativeForm() {
       });
     }
   }
+  function handleBtnTextChange(target: HTMLInputElement) {
+    const fileName = target?.files && target.files[0] && target?.files[0].name;
+    if (typeof fileName === 'string') {
+      setFileBtnText(
+        fileName.length > 14 ? fileName.substring(0, 14) + '...' : fileName
+      );
+    } else {
+      setFileBtnText('upload');
+    }
+  }
   return (
     <>
       <BackBtn />
       <FormHeader title="Native form" />
-      <form
-        className="flex flex-col gap-5"
-        onSubmit={(e) => handleSubmit(e)}
-        noValidate
-      >
-        <input placeholder="Name" type="text" name="name" />
-        <p>{errors.name}</p>
+      <form onSubmit={(e) => handleSubmit(e)} noValidate>
+        <div className="mt-10 flex flex-col gap-5 px-10 text-accent_beige">
+          <div className="items-centers relative flex p-5">
+            <label htmlFor="nameInput" className="w-[200px] font-bold">
+              Name:
+            </label>
+            <input
+              className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
+              type="text"
+              name="name"
+              id="nameInput"
+            />
+            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
+              {errors.name}
+            </p>
+          </div>
 
-        <input placeholder="Email address" type="email" name="email" />
-        <p>{errors.email}</p>
+          <div className="items-centers relative flex p-5">
+            <label htmlFor="ageInput" className="w-[200px] font-bold">
+              Age:
+            </label>
+            <input
+              className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
+              type="number"
+              name="age"
+              id="ageInput"
+            />
+            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
+              {errors.age}
+            </p>
+          </div>
 
-        <input type="number" placeholder="0" name="age" />
-        <p>{errors.age}</p>
+          <div className="items-centers relative flex p-5">
+            <label htmlFor="emailInput" className="w-[200px] font-bold">
+              Email:
+            </label>
+            <input
+              className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
+              type="email"
+              name="email"
+              id="emailInput"
+            />
+            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
+              {errors.email}
+            </p>
+          </div>
 
-        <input type="radio" value="male" name="gender" />
-        <input type="radio" value="female" name="gender" />
-        <p>{errors.gender}</p>
+          <div className="items-centers relative flex p-5">
+            <label htmlFor="passwordInput" className="w-[200px] font-bold">
+              Password:
+            </label>
+            <input
+              className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
+              type="password"
+              name="password"
+              id="passwordInput"
+            />
+            <p className={`${textColor} absolute left-10 top-[60px] text-sm`}>
+              {errors.password.slice(1)}
+            </p>
+          </div>
 
-        <input type="checkbox" name="accept" />
-        <p>{errors.accept}</p>
+          <div className="items-centers relative flex p-5">
+            <label htmlFor="confPassInput" className="w-[200px] font-bold">
+              Confirm password:
+            </label>
+            <input
+              className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
+              type="password"
+              name="confirmPassword"
+              id="confPassInput"
+            />
+            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
+              {errors.confirmPassword}
+            </p>
+          </div>
 
-        <input type="file" name="image" multiple={false} />
-        <p>{errors.image}</p>
+          <div className="items-centers relative flex p-5">
+            <p className="w-[200px] font-bold">Gender:</p>
+            <div className="flex flex-grow py-1">
+              <label
+                htmlFor="genderMale"
+                className="flex w-1/2 items-center justify-center gap-5"
+              >
+                Male:
+                <input
+                  type="radio"
+                  name="gender"
+                  value="male"
+                  id="genderMale"
+                />
+              </label>
+              <label
+                htmlFor="genderFemale"
+                className="flex w-1/2 items-center justify-center gap-5"
+              >
+                Female:
+                <input
+                  type="radio"
+                  name="gender"
+                  value="female"
+                  id="genderFemale"
+                />
+              </label>
+            </div>
+            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
+              {errors.gender}
+            </p>
+          </div>
 
-        <input
-          placeholder="Country..."
-          type="text"
-          list="countryList"
-          name="country"
-        />
-        <p>{errors.country}</p>
+          <div className="relative p-5">
+            <label htmlFor="acceptInput" className="w-[full] font-bold">
+              Accept T&C:
+              <input
+                className="ml-[50%] h-[17px] w-[17px] border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
+                type="checkbox"
+                name="accept"
+                id="acceptInput"
+              />
+            </label>
+            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
+              {errors.accept}
+            </p>
+          </div>
 
-        <input placeholder="Password..." type="password" name="password" />
-        <p className={`${textColor}`}>{errors.password.slice(1)}</p>
+          <div className="items-centers relative flex p-5">
+            <p className="w-[200px] font-bold">Choose image:</p>
+            <div className="flex w-full justify-center">
+              <label
+                htmlFor="imageInput"
+                className="w-[200px] cursor-pointer rounded-md border-b-2 border-t-2 border-accent_beige bg-[#171717] text-center transition-all duration-200 hover:bg-main_bg hover:text-accent_yellow"
+                ref={fileLabel}
+              >
+                {fileBtnText}
+                <input
+                  className="w-0 appearance-none"
+                  type="file"
+                  name="image"
+                  id="imageInput"
+                  onChange={(e) => handleBtnTextChange(e.target)}
+                />
+              </label>
+            </div>
+            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
+              {errors.image}
+            </p>
+          </div>
 
-        <input
-          placeholder="Password confirm..."
-          type="password"
-          name="confirmPassword"
-        />
-        <p>{errors.confirmPassword as string}</p>
+          <div className="items-centers relative flex p-5">
+            <label htmlFor="countryInput" className="w-[200px] font-bold">
+              Country:
+            </label>
+            <input
+              className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
+              type="text"
+              name="country"
+              id="countryInput"
+              list="countryList"
+            />
+            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
+              {errors.country}
+            </p>
+          </div>
 
-        <CountryList />
+          <CountryList />
+        </div>
 
-        <button>submit</button>
+        <div className="mt-10 w-full">
+          <button className="mx-auto block w-[300px] rounded-md border-b-2 border-t-2 border-accent_beige bg-[#171717] p-2 font-bold text-accent_beige transition-all duration-200 hover:bg-main_bg hover:text-accent_yellow disabled:border-accent_beige/40 disabled:bg-[#171717]/40 disabled:text-accent_beige/40">
+            submit
+          </button>
+        </div>
       </form>
     </>
   );

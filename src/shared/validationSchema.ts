@@ -105,7 +105,7 @@ export const rhfSchemaExtension = () => {
           const extension = (value as FileList)[0]?.name.slice(
             (value as FileList)[0].name.lastIndexOf('.')
           );
-          return ['.jpeg', '.jpg', 'png'].includes(extension);
+          return ['.jpeg', '.jpg', '.png'].includes(extension);
         }
         return false;
       }
@@ -135,7 +135,7 @@ export const nativeSchemaExtension = () => {
             const extension = value?.name.slice(
               value.name.lastIndexOf('.')
             );
-            return ['.jpeg', '.jpg', 'png'].includes(extension);
+            return ['.jpeg', '.jpg', '.png'].includes(extension);
           }
           return false;
         }
