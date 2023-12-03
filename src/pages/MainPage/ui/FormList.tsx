@@ -4,10 +4,11 @@ import { nanoid } from 'nanoid';
 export default function FormList() {
   const { formsData } = useAppSelector((state) => state.appReducer);
   const formsList = formsData.map(
-    ({ name, age, gender, email, password, country, image }) => {
+    ({ name, age, gender, email, password, country, image }, i) => {
+      const animated = i == formsData.length - 1 ? 'animated_card' : '';
       return (
         <li
-          className="w-full rounded-lg border-2 border-accent_yellow py-6 text-lg text-accent"
+          className={`w-full rounded-lg border-2 border-accent_yellow py-6 text-lg text-accent ${animated}`}
           key={nanoid()}
         >
           <p className="ml-[6rem]">Name: {name}</p>

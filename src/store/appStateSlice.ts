@@ -5,7 +5,6 @@ import { countryList } from '../shared/constants';
 
 const initialState: AppStateType = {
   countryList,
-  lastShown: 0,
   formsData: [] as FormDataType[],
 };
 
@@ -13,14 +12,11 @@ export const appStateSlice = createSlice({
   name: 'appState',
   initialState,
   reducers: {
-    setLastShown: (state, action: PayloadAction<number>) => {
-      state.lastShown = action.payload;
-    },
     addFormData: (state, action: PayloadAction<FormDataType>) => {
       state.formsData = [...state.formsData, action.payload];
     },
   },
 });
 
-export const { setLastShown, addFormData } = appStateSlice.actions;
+export const { addFormData } = appStateSlice.actions;
 export default appStateSlice.reducer;

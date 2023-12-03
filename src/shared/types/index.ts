@@ -1,6 +1,5 @@
 export type AppStateType = {
   countryList: string[];
-  lastShown: number;
   formsData: FormDataType[];
 };
 

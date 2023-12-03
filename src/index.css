@@ -6,3 +6,40 @@ body {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande','Lucida Sans', Arial, sans-serif;
   background-color: #2d2c2c;
 }
+
+.animated_card {
+  position: relative;
+  overflow: hidden;
+}
+
+.animated_card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.5) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0.5) 75%,
+    transparent 75%,
+    transparent
+    );
+    background-size: 300% 300%;
+    animation: diagonalStripe 1s linear 1 forwards;
+  }
+
+  @keyframes diagonalStripe {
+    0% {
+      background-position: -100% 0;
+      opacity: 1;
+    }
+    100% {
+      background-position: 100% 0;
+      opacity: 0;
+    }
+  }
