@@ -31,7 +31,6 @@ export default function ReactHookForm() {
   const navigate = useNavigate();
   const [fileBtnText, setFileBtnText] = useState('upload');
   const [textColor, setTextColor] = useState('text-[black]');
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [passInputType, setPassInputType] = useState('password');
   const [confPassInputType, setConfPassInputType] = useState('password');
   const fileLabel = useRef(null);
@@ -50,11 +49,11 @@ export default function ReactHookForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, touchedFields },
+    formState: { errors, isValid },
     reset,
   } = useForm({
     resolver: yupResolver(validationSchema),
-    mode: 'onBlur',
+    mode: 'onChange',
   });
 
   async function onSubmit({
@@ -87,19 +86,9 @@ export default function ReactHookForm() {
     navigate('/');
   }
 
-  const errorsArr = Object.values(errors);
-  const touchedArr = Object.values(touchedFields);
-
   useEffect(() => {
     setTextColor(getTextColor(errors.password?.message?.slice(0, 1) as string));
-    const allTouched = Array.from(Object.keys(touchedFields)).length === 9;
-    const allValid = Array.from(Object.keys(errors)).length === 0;
-    if (allTouched && allValid) {
-      setIsSubmitDisabled(false);
-    } else {
-      setIsSubmitDisabled(true);
-    }
-  }, [errorsArr, touchedArr, errors, touchedFields]);
+  }, [errors.password]);
 
   return (
     <>
@@ -228,7 +217,7 @@ export default function ReactHookForm() {
         </div>
 
         <div className="mt-10 w-full">
-          <button disabled={isSubmitDisabled} className="submit_btn">
+          <button disabled={!isValid} className="submit_btn">
             submit
           </button>
         </div>
