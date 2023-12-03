@@ -18,6 +18,7 @@ import TermsAndCondWrap from '../ReactHookForm/ui/TermsAndCondWrap';
 import FileInputWrap from '../ReactHookForm/ui/FileInputWrap';
 import { defaultErrorState } from '../../shared/constants';
 import { YupErrors } from '../../shared/types';
+import PassTogglerBtn from '../../shared/ui/PassTogglerBtn';
 
 const validationSchema = Yup.object({
   ...defaultValidationSchema(),
@@ -28,6 +29,8 @@ export default function NativeForm() {
   const [errors, setErrors] = useState(defaultErrorState);
   const [textColor, setTextColor] = useState('text-[black]');
   const [fileBtnText, setFileBtnText] = useState('upload');
+  const [passInputType, setPassInputType] = useState('password');
+  const [confPassInputType, setConfPassInputType] = useState('password');
   const fileLabel = useRef(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -114,27 +117,31 @@ export default function NativeForm() {
               Password:
             </label>
             <input
-              className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
-              type="password"
               name="password"
+              className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
+              type={passInputType}
               id="passwordInput"
             />
+            <PassTogglerBtn toggleType={setPassInputType} />
             <p className={`${textColor} absolute left-10 top-[60px] text-sm`}>
               {errors.password.slice(1)}
             </p>
           </div>
-          <TextInputWrap
-            errorMsg={errors.confirmPassword}
-            label="Confirm password:"
-            idFor="confPassInput"
-          >
+          <div className="items-centers relative flex p-5">
+            <label htmlFor="confPassInput" className="w-[200px] font-bold">
+              Confirm password:
+            </label>
             <input
               name="confirmPassword"
               className="text_input"
-              type="password"
+              type={confPassInputType}
               id="confPassInput"
             />
-          </TextInputWrap>
+            <PassTogglerBtn toggleType={setConfPassInputType} />
+            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
+              {errors.confirmPassword}
+            </p>
+          </div>
           <GenderInputWrap errorMsg={errors.gender}>
             <input name="gender" type="radio" value="male" id="genderMale" />
             <input

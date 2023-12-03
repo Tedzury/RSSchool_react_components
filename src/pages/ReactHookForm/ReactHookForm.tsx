@@ -19,6 +19,7 @@ import TextInputWrap from './ui/TextInputWrap';
 import GenderInputWrap from './ui/GenderInputWrap';
 import TermsAndCondWrap from './ui/TermsAndCondWrap';
 import FileInputWrap from './ui/FileInputWrap';
+import PassTogglerBtn from '../../shared/ui/PassTogglerBtn';
 
 const validationSchema = Yup.object({
   ...defaultValidationSchema(),
@@ -31,6 +32,8 @@ export default function ReactHookForm() {
   const [fileBtnText, setFileBtnText] = useState('upload');
   const [textColor, setTextColor] = useState('text-[black]');
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const [passInputType, setPassInputType] = useState('password');
+  const [confPassInputType, setConfPassInputType] = useState('password');
   const fileLabel = useRef(null);
 
   function handleBtnTextChange(target: HTMLInputElement) {
@@ -147,25 +150,29 @@ export default function ReactHookForm() {
             <input
               {...register('password')}
               className="w-full border-b-2 border-accent_beige bg-main_bg py-1 pl-2 text-center outline-none"
-              type="password"
+              type={passInputType}
               id="passwordInput"
             />
+            <PassTogglerBtn toggleType={setPassInputType} />
             <p className={`${textColor} absolute left-10 top-[60px] text-sm`}>
               {errors.password?.message?.slice(1) as string}
             </p>
           </div>
-          <TextInputWrap
-            errorMsg={errors.confirmPassword?.message as string}
-            label="Confirm password:"
-            idFor="confPassInput"
-          >
+          <div className="items-centers relative flex p-5">
+            <label htmlFor="confPassInput" className="w-[200px] font-bold">
+              Confirm password:
+            </label>
             <input
               {...register('confirmPassword')}
               className="text_input"
-              type="password"
+              type={confPassInputType}
               id="confPassInput"
             />
-          </TextInputWrap>
+            <PassTogglerBtn toggleType={setConfPassInputType} />
+            <p className="absolute left-10 top-[60px] text-sm text-accent_yellow">
+              {errors.confirmPassword?.message as string}
+            </p>
+          </div>
           <GenderInputWrap errorMsg={errors.gender?.message as string}>
             <input
               {...register('gender')}

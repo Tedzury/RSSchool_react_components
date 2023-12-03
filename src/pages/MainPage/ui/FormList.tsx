@@ -1,32 +1,15 @@
 import { useAppSelector } from '../../../store/hooks';
 import { nanoid } from 'nanoid';
+import FormListItem from './FormListItem';
 
 export default function FormList() {
   const { formsData } = useAppSelector((state) => state.appReducer);
-  const formsList = formsData.map(
-    ({ name, age, gender, email, password, country, image }, i) => {
-      const animated = i == formsData.length - 1 ? 'animated_card' : '';
-      return (
-        <li
-          className={`w-full rounded-lg border-2 border-accent_yellow py-6 text-lg text-accent ${animated}`}
-          key={nanoid()}
-        >
-          <p className="ml-[6rem]">Name: {name}</p>
-          <p className="ml-[6rem]">Age: {age}</p>
-          <p className="ml-[6rem]">Gender: {gender}</p>
-          <p className="ml-[6rem]">Email: {email}</p>
-          <p className="ml-[6rem]">Password: {password}</p>
-          <p className="ml-[6rem]">Country: {country}</p>
-          <p className="mt-5 w-full text-center text-xl">Provided image:</p>
-          <img
-            className="mx-auto mt-5 w-1/2 rounded-md"
-            src={image}
-            alt={`${name}`}
-          />
-        </li>
-      );
-    }
-  );
+  const formsList = formsData.map((formData, i) => {
+    const animated = i == formsData.length - 1 ? 'animated_card' : '';
+    return (
+      <FormListItem key={nanoid()} formData={formData} animated={animated} />
+    );
+  });
 
   const content =
     formsData.length > 0 ? (
